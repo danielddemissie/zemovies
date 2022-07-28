@@ -1,8 +1,9 @@
 import { API } from 'app/API';
-import { Box } from 'app/components/Blocks/Basics';
-import { Input } from 'app/components/Blocks/Basics/Input';
+import { Box, Flex } from 'app/components/Blocks/Basics';
+import { Button } from 'app/components/Blocks/Button';
+import { Input } from 'app/components/Blocks/Input';
 import { Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   MutationFunction,
   useMutation,
@@ -32,7 +33,7 @@ export default function Todos() {
   });
 
   return (
-    <Box mx={['auto']} backgroundColor={'#fff'} width={['100px', '90%']}>
+    <Box mx={['auto']} width={['100px', '90%']}>
       Todos
       <ul>
         {query.data?.map((todo, index) => (
@@ -57,33 +58,33 @@ export default function Todos() {
         >
           {({ values }) => (
             <Form>
-              <Box>
-                <Input
-                  border={'1px solid #000'}
-                  backgroundColor={'black.4'}
-                  width={['300px']}
-                  height={[4]}
-                  name="todo"
-                />
-              </Box>
-              <Box>
-                <Input
-                  name="userId"
-                  border={'1px solid #000'}
-                  backgroundColor={'black.4'}
-                  width={['300px']}
-                  height={[4]}
-                />
-              </Box>
-              <button
+              <Flex gap={'20px'} mb={['10px']} flexDirection={['column']}>
+                <Box>
+                  <Input
+                    width={['300px']}
+                    height={[4]}
+                    name="todo"
+                    borderRadius={'4px'}
+                  />
+                </Box>
+                <Box>
+                  <Input name="userId" width={['300px']} height={[4]} />
+                </Box>
+              </Flex>
+              <Button
                 type="submit"
+                borderRadius={'4px'}
+                variant="primary"
+                px={[1, 3]}
+                fontSize={['15px']}
+                py={[1, 1]}
                 onClick={async () => {
                   mutation.mutate({});
                   console.log(values);
                 }}
               >
-                addTodo
-              </button>
+                add Todo
+              </Button>
             </Form>
           )}
         </Formik>
