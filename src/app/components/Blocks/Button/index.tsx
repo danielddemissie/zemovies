@@ -62,6 +62,21 @@ export const Button = styled.button<ButtonProp>`
           color: 'black.4',
           bg: 'black.8',
         },
+        tertiary: {
+          color: 'secondary.2',
+          bg: 'white.0',
+          border: '1px solid #FF8058',
+          '&:hover': {
+            bg: 'white.1',
+          },
+        },
+        quaternary: {
+          color: 'white.0',
+          bg: 'success.0',
+          '&:hover': {
+            bg: 'success.1',
+          },
+        },
       },
     }),
   )}

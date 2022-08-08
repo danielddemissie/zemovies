@@ -21,8 +21,9 @@ export type ButtonVariant =
   | 'secondary'
   | 'error'
   | 'success'
-  | 'disabled';
-
+  | 'disabled'
+  | 'tertiary'
+  | 'quaternary';
 export interface ButtonProp
   extends ColorProps,
     SpaceProps,

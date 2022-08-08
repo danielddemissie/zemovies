@@ -24,7 +24,7 @@ const StyledInput = styled(Field)<InputProps>`
   color: ${theme.colors.black[1]};
   background-color: ${theme.colors.white[12]};
   border: 1.5px solid ${theme.colors.black[3]};
-  border-radius: 8px;
+  border-radius: ${props => props.borderRadius || '8px'};
   font-size: ${theme.fontSizes[1]};
   line-height: ${theme.lineHeights[2]};
   &:focus {
@@ -45,8 +45,11 @@ const StyledInput = styled(Field)<InputProps>`
   )};
 `;
 
-export const Input = (props: InputProps) => (
-  <div>
-    <StyledInput {...props} />
-  </div>
-);
+export const Input = (props: InputProps) => {
+  const { borderRadius, ...rest } = props;
+  return (
+    <div>
+      <StyledInput {...rest} />
+    </div>
+  );
+};
