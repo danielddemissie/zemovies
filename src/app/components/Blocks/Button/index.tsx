@@ -45,7 +45,7 @@ export const Button = styled.button<ButtonProp>`
       variants: {
         primary: {
           color: '#fff',
-          bg: 'green',
+          bg: 'primary.0',
           '& :hover': {
             bg: 'blue',
           },

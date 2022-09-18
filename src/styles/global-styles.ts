@@ -22,6 +22,14 @@ export const GlobalStyle = createGlobalStyle`
     line-height: 1.5em;
   }
 
+  ul {
+    list-style: '';
+  }
+
+  a {
+    text-decoration:'none';
+  }
+
   input, select {
     font-family: inherit;
     font-size: inherit;

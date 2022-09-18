@@ -48,7 +48,7 @@ export const Text = styled.span<TextProps>`
         },
         error: {
           color: 'red',
-          fontSize: '10px',
+          fontSize: '0.8rem',
         },
       },
     }),

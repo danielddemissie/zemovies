@@ -14,9 +14,10 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { HomePage } from './pages/HomePage/Loadable';
-import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
-import Header from './components/Header';
+import Layout from './components/Layout';
+import { Signup } from './pages/SignupPage';
 
 const queryClient = new QueryClient();
 
@@ -34,11 +35,13 @@ export function App() {
           <meta name="description" content="A React Boilerplate application" />
         </Helmet>
 
-        <Switch>
-          <Header />
-          <Route exact path="/" component={HomePage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route exact component={Signup} path="/signup" />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </Layout>
         <GlobalStyle />
         <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       </BrowserRouter>

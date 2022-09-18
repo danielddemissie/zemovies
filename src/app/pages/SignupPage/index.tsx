@@ -7,22 +7,35 @@ import { schemas } from '../../config';
 export function Signup() {
   const handleSubmit = values => console.log(values);
   return (
-    <Flex>
-      <Text>Sign up</Text>
+    <Flex flexDirection={['column']} alignItems="center">
+      <Text as={'h1'}>Sign up</Text>
       <Formik
-        initialValues={{ name: 'daniel' }}
+        initialValues={{ name: '' }}
         validationSchema={schemas.signupSchema}
         onSubmit={handleSubmit}
       >
         {() => (
           <Form>
-            <Box>
-              <Input name="name" />
+            <Box mb={['0.4rem']}>
+              <Input
+                borderRadius={[0]}
+                p={[3]}
+                placeholder="User name"
+                name="name"
+              />
               <Text variant="error">
                 <ErrorMessage name="name" />
               </Text>
             </Box>
-            <Button>sign up</Button>
+            <Button
+              variant="primary"
+              fontSize={['1rem']}
+              px={['1rem']}
+              py={['0.4rem']}
+              borderRadius={['1rem']}
+            >
+              sign up
+            </Button>
           </Form>
         )}
       </Formik>

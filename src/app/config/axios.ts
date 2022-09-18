@@ -14,7 +14,7 @@ interface IAxiosProps {
   data?: any;
 }
 
-export function API({ ...args }: IAxiosProps) {
+export function Axios({ ...args }: IAxiosProps) {
   return new Promise((resolve, reject) => {
     axios({
       method: args.method,

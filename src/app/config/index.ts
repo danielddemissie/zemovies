@@ -1,3 +1,3 @@
-import { API } from './axios';
+import { Axios } from './axios';
 import schemas from './schemas';
-export { API, schemas };
+export { Axios, schemas };

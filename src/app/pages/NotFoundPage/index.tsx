@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components/macro';
-import { P } from './P';
+import { Text } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 
 export function NotFoundPage() {
@@ -18,14 +18,14 @@ export function NotFoundPage() {
           </span>
           4
         </Title>
-        <P>Page not found.</P>
+        <Text>Page not found.</Text>
       </Wrapper>
     </>
   );
 }
 
 const Wrapper = styled.div`
-  height: 100vh;
+  height: calc(100vh - 3rem);
   display: flex;
   align-items: center;
   justify-content: center;

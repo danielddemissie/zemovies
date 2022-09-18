@@ -1,6 +1,5 @@
 import {
   SpaceProps,
-  ColorProps,
   BorderProps,
   BorderRadiusProps,
   LayoutProps,
@@ -13,8 +12,8 @@ import {
 } from 'styled-system';
 
 export interface InputProps
-  extends SpaceProps,
-    ColorProps,
+  extends React.HTMLAttributes<HTMLInputElement>,
+    SpaceProps,
     BorderProps,
     BorderRadiusProps,
     LayoutProps,

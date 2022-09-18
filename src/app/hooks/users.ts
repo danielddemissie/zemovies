@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { API } from 'app/config';
+import { Axios } from 'app/config';
 
 export const useUsers = () => {
-  return useQuery('users', async () => {
-    return await API({
+  return useQuery('users', () => {
+    return Axios({
       method: 'GET',
       route: '/users',
       token: 'eyu',
