@@ -16,6 +16,7 @@ import { GlobalStyle } from 'styles/global-styles';
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './components/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
+import Header from './components/Header';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ export function App() {
         </Helmet>
 
         <Switch>
+          <Header />
           <Route exact path="/" component={HomePage} />
           <Route component={NotFoundPage} />
         </Switch>

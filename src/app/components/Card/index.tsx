@@ -26,7 +26,7 @@ export default ({ title, subheader, imgUrl, description, userName, index }) => {
         avatar={
           <Avatar
             sx={{
-              bgcolor: red[index * 100],
+              bgcolor: red[500],
             }}
             arial-lable="recipet"
           >
@@ -40,13 +40,7 @@ export default ({ title, subheader, imgUrl, description, userName, index }) => {
       <CardContent>
         <Text variant="multiLineEllipsis">{description}</Text>
       </CardContent>
-      <CardActionArea
-        sx={{
-          ':hover': {
-            bgcolor: 'white',
-          },
-        }}
-      >
+      <CardActionArea>
         <IconButton>
           <Favorite />
         </IconButton>

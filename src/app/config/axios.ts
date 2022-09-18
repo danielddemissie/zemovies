@@ -1,5 +1,5 @@
 import axios from 'axios';
-type mehtods = 'POST' | 'GET' | 'PUT' | 'DELETE';
+type mehtods = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'PATCH';
 
 //defaultBaseURL
 axios.defaults.baseURL = `${

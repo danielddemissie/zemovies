@@ -46,6 +46,10 @@ export const Text = styled.span<TextProps>`
           whiteSpace: 'nowrap',
           textOverflow: 'ellipsis',
         },
+        error: {
+          color: 'red',
+          fontSize: '10px',
+        },
       },
     }),
   )}
