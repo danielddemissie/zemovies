@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 type mehtods = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'PATCH';
 
 //defaultBaseURL
@@ -15,7 +15,7 @@ interface IAxiosProps {
 }
 
 export function Axios({ ...args }: IAxiosProps) {
-  return new Promise((resolve, reject) => {
+  return new Promise<AxiosResponse>((resolve, reject) => {
     axios({
       method: args.method,
       url: args.route,

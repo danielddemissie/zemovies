@@ -13,9 +13,17 @@ import { Favorite, Share } from '@mui/icons-material';
 import { Text } from '../Blocks/Typography';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ title, subheader, imgUrl, description, userName, index }) => {
+export default ({
+  title,
+  subheader,
+  imgUrl,
+  description,
+  userName,
+  onClick = () => {},
+}) => {
   return (
     <Card
+      onClick={onClick}
       sx={{
         maxWidth: '400px',
         boxShadow:

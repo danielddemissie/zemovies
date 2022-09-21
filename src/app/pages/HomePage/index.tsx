@@ -1,19 +1,28 @@
-import { Grid } from 'app/components/Blocks/';
+import { Grid, Text, Box } from 'app/components/Blocks/';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Card from 'app/components/Card';
-// import { useUsers } from 'app/hooks/users';
+import { useGetUsers } from 'app/hooks/users';
 
 export function HomePage() {
-  // const { isLoading, isError, data } = useUsers();
-  // console.log(data);
+  const { isLoading, isError, data } = useGetUsers();
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : isError ? (
+        <Text>Error occured.</Text>
+      ) : (
+        <Box>
+          {data?.data?.results?.map((_ele, _index) => (
+            <Text key={_index}>{_ele}</Text>
+          ))}
+        </Box>
+      )}
       <Grid
         width={['100%', '90%']}
         mx={['auto']}
@@ -31,7 +40,6 @@ export function HomePage() {
         {Array.from(Array(20)).map((_, index) => (
           <Grid item xs={12} sm={3} md={4} lg={3} key={index}>
             <Card
-              index={index}
               userName={'Daniel'}
               title={'This is Cool'}
               subheader={'so cool man'}

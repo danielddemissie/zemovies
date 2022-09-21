@@ -15,9 +15,9 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
+import { Signup } from './pages/SignupPage/Loadable';
 import { useTranslation } from 'react-i18next';
 import Layout from './components/Layout';
-import { Signup } from './pages/SignupPage';
 
 const queryClient = new QueryClient();
 
@@ -34,15 +34,14 @@ export function App() {
         >
           <meta name="description" content="A React Boilerplate application" />
         </Helmet>
-
+        <GlobalStyle />
         <Layout>
           <Switch>
+            <Route path="/signup" component={Signup} />
             <Route exact path="/" component={HomePage} />
-            <Route exact component={Signup} path="/signup" />
             <Route component={NotFoundPage} />
           </Switch>
         </Layout>
-        <GlobalStyle />
         <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       </BrowserRouter>
     </QueryClientProvider>

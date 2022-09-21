@@ -25,7 +25,7 @@ export function NotFoundPage() {
 }
 
 const Wrapper = styled.div`
-  height: calc(100vh - 3rem);
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

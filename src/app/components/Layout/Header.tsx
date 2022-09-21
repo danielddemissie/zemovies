@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Flex } from '../Blocks';
-import { Text } from '../Blocks/Typography';
 
 export default () => {
   return (
@@ -15,11 +14,18 @@ export default () => {
         zIndex: 10,
       }}
     >
-      <Text color={'white.0'}>Header</Text>
+      <ul
+        style={{
+          display: 'flex',
+          gap: '2rem',
+        }}
+      >
+        <Link to="/">Home</Link>
+      </ul>
 
       <ul>
         <li>
-          <Link to="/signup">signup</Link>
+          <Link to="/signup">Signup</Link>{' '}
         </li>
       </ul>
     </Flex>

@@ -9,7 +9,7 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 
 import * as React from 'react';
-import * as ReactDOMClient from 'react-dom/client';
+import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { theme } from 'styles/theme';
 import { ThemeProvider } from 'styled-components';
@@ -32,7 +32,7 @@ import './locales/i18n';
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
-ReactDOMClient.createRoot(MOUNT_NODE!).render(
+ReactDOM.render(
   <Provider store={store}>
     <HelmetProvider>
       <React.StrictMode>
@@ -42,6 +42,7 @@ ReactDOMClient.createRoot(MOUNT_NODE!).render(
       </React.StrictMode>
     </HelmetProvider>
   </Provider>,
+  MOUNT_NODE,
 );
 
 // Hot reloadable translation json files
