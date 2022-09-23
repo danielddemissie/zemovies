@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'ubuntu','Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   #root {
@@ -21,14 +21,17 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
-
-  ul {
-    list-style: '';
+  
+  ul { 
+    list-style: none;
+    display: flex;
+    gap: 1rem;
   }
 
-  a {
-    text-decoration:'none';
+  a { 
+    text-decoration: none;
   }
+
 
   input, select {
     font-family: inherit;

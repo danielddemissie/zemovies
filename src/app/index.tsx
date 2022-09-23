@@ -34,7 +34,6 @@ export function App() {
         >
           <meta name="description" content="A React Boilerplate application" />
         </Helmet>
-        <GlobalStyle />
         <Layout>
           <Switch>
             <Route path="/signup" component={Signup} />
@@ -42,6 +41,7 @@ export function App() {
             <Route component={NotFoundPage} />
           </Switch>
         </Layout>
+        <GlobalStyle />
         <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       </BrowserRouter>
     </QueryClientProvider>

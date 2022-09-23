@@ -1,57 +1,29 @@
-import { Grid, Text, Box } from 'app/components/Blocks/';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import Card from 'app/components/Card';
-import { useGetUsers } from 'app/hooks/users';
+import Bg1 from '../../../assets/images/queen.jpg';
+import { BigCard } from 'app/components/Card';
+import { Grid } from 'app/components/Blocks';
 
 export function HomePage() {
-  const { isLoading, isError, data } = useGetUsers();
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      {isLoading ? (
-        <Text>Loading...</Text>
-      ) : isError ? (
-        <Text>Error occured.</Text>
-      ) : (
-        <Box>
-          {data?.data?.results?.map((_ele, _index) => (
-            <Text key={_index}>{_ele}</Text>
-          ))}
-        </Box>
-      )}
       <Grid
-        width={['100%', '90%']}
-        mx={['auto']}
-        mt={[5]}
         container
-        justifyContent={'center'}
-        spacing={{ xs: 2, sm: 3, md: 3, lg: 4 }}
-        columns={{
-          xs: 12,
-          sm: 6,
-          md: 12,
-          lg: 12,
+        direction={'row'}
+        columns={{ lg: 12, md: 12, sm: 12 }}
+        columnGap={{
+          lg: 1,
+          md: 0.5,
+          sm: 1,
         }}
       >
-        {Array.from(Array(20)).map((_, index) => (
-          <Grid item xs={12} sm={3} md={4} lg={3} key={index}>
-            <Card
-              userName={'Daniel'}
-              title={'This is Cool'}
-              subheader={'so cool man'}
-              imgUrl={
-                'https://images.freeimages.com/images/previews/4ba/healthy-food-1327899.jpg'
-              }
-              description={`Lorem ipsum dolor sit amet, consect etur adipi sicing elit. Necess itatibus ab distinctio,
-           veritatis corrupti dolore corporis? Quo facere distinctio earum aliquid cum architecto tempore molestiae nihil aliquam, 
-           consequatur, velit blanditiis labore recusandae aperiam sunt similique eius ipsa tenetur quod officia nesciunt! Aut, 
-           explicabo laborum hic maiores aliquid optio voluptate quidem atque nam sed, quibusdam iste soluta ab qui. Numquam iusto facilis perferendis? 
-           Explicabo doloribus ducimus sit distinctio soluta, dolorem id animi nesciunt itaque officiis! Ut iste natus, voluptates esse numquam expedita.`}
-            />
+        {Array.from(Array(5)).map((_card, _index) => (
+          <Grid lg={12} sm={2} md={2} item>
+            <BigCard imgUrl={Bg1} message="Introducing IMDb What to Watch" />
           </Grid>
         ))}
       </Grid>
