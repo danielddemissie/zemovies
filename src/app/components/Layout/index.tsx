@@ -7,7 +7,7 @@ import Header from './Header';
 
 export default ({ children }) => {
   return (
-    <Container maxWidth={'xl'}>
+    <Container>
       <Header />
       <Box my={['1rem']} minHeight={'calc(100vh - 5rem)'}>
         {children}

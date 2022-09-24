@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 
 export default () => {
   const param = useLocation().pathname;
-  const pages = ['signin', 'signup', 'contact us'];
+  const pages = ['signin', 'pricing', 'about us'];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
   );

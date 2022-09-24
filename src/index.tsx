@@ -15,6 +15,7 @@ import { theme } from 'styles/theme';
 import { ThemeProvider } from 'styled-components';
 
 // Use consistent styling
+import 'react-alice-carousel/lib/alice-carousel.css';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
