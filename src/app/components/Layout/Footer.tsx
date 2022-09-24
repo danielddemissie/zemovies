@@ -17,6 +17,9 @@ export default () => {
       alignItems="center"
       flexDirection={['column', 'row']}
       justifyContent={'space-evenly'}
+      backgroundColor="white.4"
+      px="1rem"
+      py="2rem"
     >
       <Box>
         <Link to="/">

@@ -33,6 +33,7 @@ interface GradProps {
 
 export const Grad = styled(Box)<GradProps>`
   position: relative;
+  z-index: 0;
   &:after {
     content: '';
     cursor: pointer;
@@ -41,12 +42,14 @@ export const Grad = styled(Box)<GradProps>`
     top: 0;
     width: 100%;
     height: 100%;
+
     background: linear-gradient(
       to ${props => props.to},
-      rgba(0, 0, 0, 0.9) 2%,
-      rgba(0, 0, 0, 0.8) 10%,
-      rgba(0, 0, 0, 0.8) 5%,
-      rgba(0, 0, 0, 0) 5%
+      rgba(0, 0, 0, 0.4) 10%,
+      rgba(0, 0, 0, 0.3) 3%,
+      rgba(0, 0, 0, 0.2) 3%,
+      rgba(0, 0, 0, 0.1) 3%,
+      rgba(0, 0, 0, 0.05) 1%
     );
     border-radius: ${props => props.borderRadius};
   }
