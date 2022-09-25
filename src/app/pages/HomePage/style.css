@@ -1,3 +1,7 @@
 .alice-carousel__dots {
   justify-content: center;
 }
+
+.alice-carousel__dots-item.__active {
+  background-color: #0092ca !important;
+}

@@ -15,9 +15,10 @@ export default () => {
     <Flex
       gap={10}
       alignItems="center"
+      flexWrap="wrap"
       flexDirection={['column', 'row']}
       justifyContent={'space-evenly'}
-      backgroundColor="white.4"
+      backgroundColor="black.0"
       px="1rem"
       py="2rem"
     >

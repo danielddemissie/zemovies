@@ -1,0 +1,16 @@
+.card_wrapper:hover {
+  transform: scale(1.1);
+  transition: transform 1s ease;
+}
+
+.card_wrapper:hover .play_icon {
+  visibility: visible;
+}
+
+.play_icon {
+  visibility: hidden;
+}
+
+.play_icon:hover {
+  color: #0092ca;
+}

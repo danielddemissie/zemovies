@@ -1,5 +1,8 @@
+import { PlayCircleOutline } from '@mui/icons-material';
 import React from 'react';
 import { Box, Text } from '../Blocks';
+import './style.css';
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
@@ -17,10 +20,9 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         objectFit: 'contain',
-        backgroundColor: '#464646',
         borderRadius: '5px',
+        backgroundImage: `url(${imgUrl})`,
       }}
-      background={`url(${imgUrl})`}
     >
       <Text
         style={{
@@ -34,6 +36,17 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
       >
         {rate}
       </Text>
+      <PlayCircleOutline
+        className="play_icon"
+        sx={{
+          alignSelf: 'center',
+          position: 'relative',
+          top: '40%',
+          width: '50px',
+          height: '50px',
+          color: '#ffffffe1',
+        }}
+      />
       <Text
         style={{
           position: 'relative',
@@ -65,7 +78,6 @@ export const BigCard = ({ imgUrl, description, title }) => (
       backgroundSize: 'cover',
       backgroundAttachment: 'scroll',
       backgroundPosition: 'center',
-      backgroundColor: '#464646',
       padding: '3px 10px',
     }}
     background={`url(${imgUrl})`}

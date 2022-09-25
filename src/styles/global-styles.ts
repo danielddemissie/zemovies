@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'ubuntu','Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #000;
   }
 
   #root {

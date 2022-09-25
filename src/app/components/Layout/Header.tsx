@@ -11,7 +11,7 @@ export default () => {
   return (
     <AppBar
       sx={{
-        background: '#fff',
+        background: '#000',
         boxShadow: 'none',
       }}
       position="static"
