@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import Card, { BigCard } from 'app/components/Card';
-import { Grid, Box, Text, Grad } from 'app/components/Blocks';
+import { Grid, Box, Text } from 'app/components/Blocks';
 import AliceCarousel from 'react-alice-carousel';
 import { useTrending, useUpcoming } from 'app/hooks';
+import 'react-alice-carousel/lib/alice-carousel.css';
+import './style.css';
 
 export function HomePage() {
   const trendignQuery = useTrending();
   const upcomingQuery = useUpcoming();
   const baseUrl = 'https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/';
-  const items = trendignQuery.data?.data?.results?.map((_card, _index) => (
+  const items = trendignQuery.data?.data?.results?.map((_movie, _index) => (
     <BigCard
-      imgUrl={baseUrl + _card.backdrop_path}
-      title={_card.title}
-      description={_card.overview}
+      imgUrl={baseUrl + _movie.backdrop_path}
+      title={_movie.title ? _movie.title : _movie.original_name}
+      description={_movie.overview}
     />
   ));
   const percent = 0.3;
@@ -36,7 +38,9 @@ export function HomePage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
 
-      <Text as="h1">Trending Movies</Text>
+      <Text as="h1" mt="2rem">
+        Trending Movies
+      </Text>
       {trendignQuery.isLoading ? (
         <Text>Loading...</Text>
       ) : trendignQuery.isError ? (
@@ -58,7 +62,7 @@ export function HomePage() {
           />
         </Box>
       )}
-      <Text as={'h2'} display="block">
+      <Text mt="2rem" as={'h2'} display="block">
         Upcoming Movies
       </Text>
       <Grid
@@ -66,7 +70,6 @@ export function HomePage() {
         direction={'row'}
         alignItems="center"
         justifyContent={'center'}
-        mt="2rem"
       >
         {upcomingQuery.isLoading ? (
           <Text>Loading...</Text>
@@ -74,7 +77,7 @@ export function HomePage() {
           <Text>Error occured</Text>
         ) : (
           upcomingQuery.data?.data.results?.map((movie, index) => (
-            <Grid item lg={3} p="2px" key={index}>
+            <Grid item lg={2} sm={6} xs={12} p="4px" key={index}>
               <Card
                 title={movie.title}
                 imgUrl={baseUrl + movie.backdrop_path}

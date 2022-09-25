@@ -8,6 +8,10 @@ export const usegGetTrending = () => {
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
       route: 'https://api.themoviedb.org/3/trending/all/day',
+      params: {
+        page: 1,
+        size: 10,
+      },
     });
   });
 };

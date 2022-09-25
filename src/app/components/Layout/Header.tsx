@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Flex, Text, Box, Button } from '../Blocks';
 import { ReactComponent as Logo } from '../../../assets/images/video.svg';
-import { AppBar, MenuItem, Menu } from '@mui/material';
+import { AppBar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 export default () => {
   const pages = ['signin', 'pricing', 'about us'];
@@ -18,7 +18,7 @@ export default () => {
     >
       <Flex
         flexDirection={['row']}
-        alignContent={['space-between']}
+        alignContent={['center']}
         justifyContent="space-between"
         flexWrap="wrap"
       >
@@ -32,44 +32,25 @@ export default () => {
                 color={'primary.0'}
                 fontWeight={'bold'}
               >
-                Movies
+                ZeMovies
               </Text>
             </Flex>
           </Link>
         </Box>
 
         <Box
+          alignSelf={'center'}
           sx={{
-            flexGrow: 1,
             display: { xs: 'flex', md: 'none' },
           }}
         >
-          <MenuIcon />
-          <Menu
-            id="menu-appbar"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
+          <MenuIcon
+            style={{
+              width: '3rem',
+              height: '3rem',
+              color: '#0092ca',
             }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            open={false}
-            onClose={() => {}}
-            sx={{
-              display: { xs: 'block', md: 'none' },
-            }}
-          >
-            {pages.map(page => (
-              <MenuItem key={page} onClick={() => {}}>
-                <Text textAlign="center" color="white.0">
-                  {page}
-                </Text>
-              </MenuItem>
-            ))}
-          </Menu>
+          />
         </Box>
 
         <Box

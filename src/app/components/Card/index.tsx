@@ -1,63 +1,64 @@
 import React from 'react';
-import { Box, Button, Text } from '../Blocks';
+import { Box, Text } from '../Blocks';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
     <Box
       onClick={onClick}
+      width="100%"
+      height="350px"
+      display="flex"
+      flexDirection={'column'}
+      alignItems={'flex-start'}
+      className="card_wrapper"
       sx={{
-        width: '100%',
         cursor: 'pointer',
-        boxShadow:
-          'rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        objectFit: 'contain',
+        backgroundColor: '#464646',
+        borderRadius: '5px',
       }}
+      background={`url(${imgUrl})`}
     >
-      <Box
-        width="100%"
-        height="350px"
+      <Text
         style={{
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundColor: '#464646',
-          borderRadius: '5px',
+          backgroundColor: 'black',
+          borderRadius: '3px',
         }}
-        background={`url(${imgUrl})`}
+        px={'10px'}
+        zIndex="10"
+        color="gold"
+        fontSize={'1.3rem'}
       >
-        <Box
-          background={`linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0.3) 10%,
-            rgba(0, 0, 0, 0.3) 5%,
-            rgba(0, 0, 0, 0.3) 3%,
-            rgba(0, 0, 0, 0.3) 3%,
-            rgba(0, 0, 0, 0.3) 1%)`}
-        >
-          <Text zIndex="10" color="gold" fontSize={'1.3rem'}>
-            {rate}
-          </Text>
-          <Text
-            zIndex={'10'}
-            fontWeight="bold"
-            color="white.0"
-            px={'10px'}
-            fontSize={['1rem']}
-          >
-            {title}
-          </Text>
-        </Box>
-      </Box>
+        {rate}
+      </Text>
+      <Text
+        style={{
+          position: 'relative',
+          top: '70%',
+        }}
+        zIndex={'10'}
+        fontWeight="bold"
+        color="white.0"
+        px={'10px'}
+        fontSize={['1rem']}
+      >
+        {title}
+      </Text>
     </Box>
   );
 };
 
 export const BigCard = ({ imgUrl, description, title }) => (
   <Box
-    minWidth={['100%', '800px']}
-    mx="auto"
+    minWidth={['300px', '500px', '800px']}
     borderRadius={'10px'}
     display="flex"
     flexDirection={'column'}
     justifyContent={'flex-end'}
+    flexWrap="wrap"
     height={['50vh', 'calc(100vh - 10rem)']}
     style={{
       backgroundRepeat: 'no-repeat',
@@ -65,6 +66,7 @@ export const BigCard = ({ imgUrl, description, title }) => (
       backgroundAttachment: 'scroll',
       backgroundPosition: 'center',
       backgroundColor: '#464646',
+      padding: '3px 10px',
     }}
     background={`url(${imgUrl})`}
   >
@@ -78,18 +80,23 @@ export const BigCard = ({ imgUrl, description, title }) => (
     >
       {title}
     </Text>
-    <Text color="white.0">{description}</Text>
-    <Button
-      mt={'1rem'}
-      variant="primary"
+    <Text variant={'multiLineEllipsis'} color="white.0">
+      {description}
+    </Text>
+    <Text
+      mt={'0.5rem'}
+      mb={'2rem'}
       fontSize={['1rem']}
       fontFamily="ubuntu"
-      px={['2rem']}
-      type="submit"
+      px={['1rem']}
+      textAlign="center"
       py={['0.5rem']}
+      bg="primary.0"
+      width={'100px'}
+      color="white.0"
       borderRadius={['0.4rem']}
     >
       Detail
-    </Button>
+    </Text>
   </Box>
 );

@@ -31,7 +31,7 @@ export default () => {
               color={'primary.0'}
               fontWeight={'bold'}
             >
-              Movies
+              ZeMovies
             </Text>
           </Flex>
         </Link>
