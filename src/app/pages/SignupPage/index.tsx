@@ -1,24 +1,17 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
 import { Form, Formik, ErrorMessage } from 'formik';
-import {
-  Input,
-  Box,
-  Flex,
-  Button,
-  Text,
-  Grid,
-  Img,
-} from 'app/components/Blocks';
+import { Input, Box, Flex, Button, Text, Grid } from 'app/components/Blocks';
 import { schemas } from '../../config';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
-import SignupHero from '../../../assets/images/signup-hero.jpg';
 import { ReactComponent as GoogleIcon } from '../../../assets/images/googleIcon.svg';
 import { ReactComponent as FacebookIcon } from '../../../assets/images/facebookIcon.svg';
 import { Divider, Chip } from '@mui/material';
+import './style.css';
 
 export function Signup() {
+  const [isSignin, setIsSignin] = React.useState(true);
   const history = useHistory();
   const handleSubmit = values => {
     history.push('/');
@@ -32,31 +25,36 @@ export function Signup() {
           content="Signup page to register for zmovies"
         />
       </Helmet>
-      <Grid
+      <Flex
         maxWidth="lg"
-        container
-        direction={'row'}
         alignItems={'center'}
-        gap="1rem"
-        justifyContent={'center'}
-        columns={{ md: 5, lg: 12 }}
+        flexDirection={['column', 'row']}
+        mx="auto"
+        mt={'5rem'}
+        height={['60vh', '50vh']}
+        justifyContent={'space-between'}
+        style={{
+          boxShadow: `rgba(3, 102, 214, 0.3) 0px 0px 0px 3px`,
+          borderRadius: '10px',
+        }}
       >
-        <Grid item md={2} mt="3rem" lg={6}>
-          <Img width={500} height={400} src={SignupHero} alt="signup hero" />
-        </Grid>
-        <Divider />
-        <Grid item md={4} lg={5}>
+        <Box mx="auto">
           <Text as={'h1'} color="primary.0">
-            Sign in
+            {isSignin ? 'Sign in' : 'Sign up'}
           </Text>
 
           <Flex flexWrap={'wrap'} justifyContent="space-between">
             <Text
               px="1rem"
               py="0.5rem"
+              fontSize={['12px', '15px']}
+              hover={{
+                boxShadow: `rgba(3, 102, 214, 0.3) 0px 0px 0px 3px`,
+                borderRadius: '10px',
+              }}
               style={{
-                boxShadow: `rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px`,
                 cursor: 'pointer',
+                color: 'white',
               }}
             >
               <GoogleIcon
@@ -65,16 +63,20 @@ export function Signup() {
                   marginRight: '5px',
                 }}
               />
-              Signup with Google{' '}
+              Signin with Google{' '}
             </Text>
 
             <Text
               px="1rem"
               py="0.5rem"
+              hover={{
+                boxShadow: `rgba(3, 102, 214, 0.3) 0px 0px 0px 3px`,
+                borderRadius: '10px',
+              }}
+              fontSize={['12px', '15px']}
               style={{
                 cursor: 'pointer',
-
-                boxShadow: `rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px`,
+                color: 'white',
               }}
             >
               <FacebookIcon
@@ -83,7 +85,7 @@ export function Signup() {
                   marginRight: '5px',
                 }}
               />
-              Signup with FaceBook{' '}
+              Signin with Facebook{' '}
             </Text>
           </Flex>
           <Divider
@@ -95,6 +97,7 @@ export function Signup() {
               label="Or"
               sx={{
                 px: '1rem',
+                color: 'white',
               }}
             />
           </Divider>
@@ -105,8 +108,30 @@ export function Signup() {
           >
             {({ values }) => (
               <Form>
+                {!isSignin && (
+                  <Box mb={['1rem']}>
+                    <Input
+                      bg={'black.0'}
+                      color="white.0"
+                      border="1px solid #0092ca"
+                      borderRadius={[0]}
+                      p={[3]}
+                      placeholder="Email"
+                      name="email"
+                      style={{
+                        width: '100%',
+                      }}
+                    />
+                    <Text variant="error">
+                      <ErrorMessage name="email" />
+                    </Text>
+                  </Box>
+                )}
                 <Box mb={['1rem']}>
                   <Input
+                    bg={'black.0'}
+                    color="white.0"
+                    border="1px solid #0092ca"
                     borderRadius={[0]}
                     p={[3]}
                     placeholder="User name"
@@ -121,6 +146,9 @@ export function Signup() {
                 </Box>
                 <Box mb={['1rem']}>
                   <Input
+                    bg={'black.0'}
+                    color="white.0"
+                    border="1px solid #0092ca"
                     borderRadius={[0]}
                     p={[3]}
                     placeholder="Password"
@@ -142,13 +170,42 @@ export function Signup() {
                   py={['0.5rem']}
                   borderRadius={['1rem']}
                 >
-                  sign in
+                  {isSignin ? 'sign in' : 'sign up'}
                 </Button>
               </Form>
             )}
           </Formik>
-        </Grid>
-      </Grid>
+        </Box>
+
+        <Divider />
+        <Box
+          bg="black.1"
+          width={['100%', '50%']}
+          display="flex"
+          alignItems={'center'}
+          flexDirection="column"
+          justifyContent="center"
+          borderRadius="10px"
+          height={'100%'}
+          mb="20px"
+        >
+          <Text as="h4" color="white.0" textAlign={'center'}>
+            {isSignin ? "Don't have an account?" : 'Continue with my account?'}
+          </Text>
+          <Button
+            variant="primary"
+            fontSize={['1rem']}
+            fontFamily="ubuntu"
+            px={['2rem']}
+            type="submit"
+            py={['0.5rem']}
+            borderRadius={['1rem']}
+            onClick={() => setIsSignin(!isSignin)}
+          >
+            {isSignin ? 'sign up' : 'sign in'}
+          </Button>
+        </Box>
+      </Flex>
     </>
   );
 }

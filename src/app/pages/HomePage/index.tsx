@@ -76,7 +76,7 @@ export function HomePage() {
             upcomingQuery.data?.data.results
               ?.slice(0, 12)
               .map((movie, index) => (
-                <Grid item lg={2} sm={6} xs={12} p="10px" key={index}>
+                <Grid item lg={2} sm={6} xs={11} p="10px" key={index}>
                   <Card
                     title={movie.title}
                     imgUrl={baseUrl + movie.backdrop_path}
@@ -98,6 +98,7 @@ export function HomePage() {
           alignItems="center"
           rowGap={{
             lg: '1rem',
+            sm: '1rem',
           }}
           justifyContent={'center'}
         >
@@ -109,7 +110,7 @@ export function HomePage() {
             topRatedQuery.data?.data.results
               ?.slice(0, 12)
               .map((movie, index) => (
-                <Grid item lg={2} sm={6} xs={12} p="10px" key={index}>
+                <Grid item lg={2} sm={6} xs={11} p="10px" key={index}>
                   <Card
                     title={movie.title}
                     imgUrl={baseUrl + movie.backdrop_path}

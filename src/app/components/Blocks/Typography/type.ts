@@ -13,7 +13,7 @@ import {
   LineHeightProps,
 } from 'styled-system';
 
-type TextVariant = 'multiLineEllipsis' | 'singleLineEllipsis' | 'error';
+type TextVariant = 'multiLineEllipsis' | 'ellipsis' | 'error';
 
 export interface TextProps
   extends FontFamilyProps,

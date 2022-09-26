@@ -26,12 +26,12 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
     >
       <Text
         style={{
-          backgroundColor: 'black',
-          borderRadius: '3px',
+          backgroundColor: rate >= 8 ? 'black' : rate > 5 ? 'black' : 'black',
         }}
+        borderRadius="3px"
         px={'10px'}
         zIndex="10"
-        color="gold"
+        color={rate >= 8 ? 'gold' : rate > 6 ? 'green' : 'red'}
         fontSize={'1.3rem'}
       >
         {rate}
@@ -52,10 +52,11 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
           position: 'relative',
           top: '70%',
         }}
-        zIndex={'10'}
         fontWeight="bold"
         color="white.0"
-        px={'10px'}
+        px={'5px'}
+        variant="ellipsis"
+        width="90%"
         fontSize={['1rem']}
       >
         {title}

@@ -36,7 +36,7 @@ export function App() {
         </Helmet>
         <Layout>
           <Switch>
-            <Route path="/signup" component={Signup} />
+            <Route path="/signin" component={Signup} />
             <Route exact path="/" component={HomePage} />
             <Route component={NotFoundPage} />
           </Switch>

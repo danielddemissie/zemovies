@@ -1,0 +1,7 @@
+.MuiDivider-root::before {
+  border-top: thin solid #393e46;
+}
+
+.MuiDivider-root::after {
+  border-top: thin solid #393e46;
+}
