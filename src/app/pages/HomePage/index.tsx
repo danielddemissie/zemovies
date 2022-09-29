@@ -37,7 +37,7 @@ export function HomePage() {
             container
             direction={'row'}
             alignItems="center"
-            rowGap={'1rem'}
+            rowGap={[0, '1rem']}
             justifyContent={'center'}
           >
             {topRatedQuery.isLoading ? (
@@ -48,7 +48,7 @@ export function HomePage() {
               topRatedQuery.data?.data.results
                 ?.slice(0, 12)
                 .map((movie, index) => (
-                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
+                  <Grid item lg={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
                         history.push(`/detail/${movie.id}`);
@@ -76,7 +76,7 @@ export function HomePage() {
             direction={'row'}
             alignItems="center"
             justifyContent={'center'}
-            rowGap={'1rem'}
+            rowGap={[0, '1rem']}
           >
             {nowPlaying.isLoading ? (
               <Text>Loading...</Text>
@@ -86,7 +86,7 @@ export function HomePage() {
               nowPlaying.data?.data.results
                 ?.slice(0, 12)
                 .map((movie, index) => (
-                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
+                  <Grid item lg={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
                         history.push(`/detail/${movie.id}`);
@@ -115,7 +115,7 @@ export function HomePage() {
             direction={'row'}
             alignItems="center"
             justifyContent={'center'}
-            rowGap={'1rem'}
+            rowGap={[0, '1rem']}
           >
             {upcomingQuery.isLoading ? (
               <Text>Loading...</Text>
@@ -125,7 +125,7 @@ export function HomePage() {
               upcomingQuery.data?.data.results
                 ?.slice(0, 12)
                 .map((movie, index) => (
-                  <Grid item lg={2} sm={4} p={'10px'} xs={11} key={index}>
+                  <Grid item lg={2} sm={4} p={'10px'} xs={6} key={index}>
                     <Card
                       onClick={() => {
                         history.push(`/detail/${movie.id}`);

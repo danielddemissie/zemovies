@@ -51,40 +51,46 @@ export function DetailPage() {
           </Box>
         )}
       </Box>
-      <Box mt={['140vh', '10rem']} maxWidth={'xl'} mx="auto">
-        <Text mt={'10rem'} className="section_header" as="h2">
-          Related Movies
-        </Text>
-        <Grid
-          container
-          direction={'row'}
-          alignItems="center"
-          rowGap={'1rem'}
-          justifyContent={'center'}
-        >
-          {relatedQuery.isLoading ? (
-            <Text>Loading...</Text>
-          ) : relatedQuery.isError ? (
-            <Text>Error occured</Text>
-          ) : (
-            relatedQuery.data?.data.results
-              ?.slice(0, 12)
-              .map((movie, index) => (
-                <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
-                  <Card
-                    onClick={() => {
-                      history.push(`/detail/${movie.id}`);
-                    }}
-                    title={movie.title}
-                    imgUrl={imgUrls.mediumImages + movie.poster_path}
-                    rate={movie.vote_average}
-                  />
-                </Grid>
-              ))
-          )}
-          <Text textAlign={'left'}>View More</Text>
-        </Grid>
-      </Box>
+      <section
+        style={{
+          margin: '0 10px',
+        }}
+      >
+        <Box mt={['140vh', '10rem']} maxWidth={'xl'} mx="auto">
+          <Text mt={'10rem'} className="section_header" as="h2">
+            Related Movies
+          </Text>
+          <Grid
+            container
+            direction={'row'}
+            alignItems="center"
+            rowGap={'1rem'}
+            justifyContent={'center'}
+          >
+            {relatedQuery.isLoading ? (
+              <Text>Loading...</Text>
+            ) : relatedQuery.isError ? (
+              <Text>Error occured</Text>
+            ) : (
+              relatedQuery.data?.data.results
+                ?.slice(0, 12)
+                .map((movie, index) => (
+                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
+                    <Card
+                      onClick={() => {
+                        history.push(`/detail/${movie.id}`);
+                      }}
+                      title={movie.title}
+                      imgUrl={imgUrls.mediumImages + movie.poster_path}
+                      rate={movie.vote_average}
+                    />
+                  </Grid>
+                ))
+            )}
+            <Text textAlign={'left'}>View More</Text>
+          </Grid>
+        </Box>
+      </section>
     </>
   );
 }

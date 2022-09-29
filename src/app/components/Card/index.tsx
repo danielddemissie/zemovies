@@ -22,7 +22,7 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
           backgroundColor: rate >= 8 ? 'black' : rate > 5 ? 'black' : 'black',
         }}
         color={rate >= 8 ? 'gold' : rate > 6 ? 'green' : 'red'}
-        fontSize={'1.3rem'}
+        fontSize={['1rem', '1.3rem']}
       >
         {+rate.toFixed(1)}
       </Text>
