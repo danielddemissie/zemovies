@@ -9,7 +9,8 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'ubuntu','Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-color: #000;
+    background: linear-gradient(to right top, #051937, #001b35, #001d32, #001e2e, #011f2a);
+
   }
 
   #root {
@@ -25,8 +26,6 @@ export const GlobalStyle = createGlobalStyle`
   
   ul { 
     list-style: none;
-    display: flex;
-    gap: 1rem;
   }
 
   a { 

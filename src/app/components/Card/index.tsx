@@ -1,29 +1,12 @@
 import { PlayCircleOutline } from '@mui/icons-material';
 import React from 'react';
-import { Box, Text } from '../Blocks';
+import { Box, Img, Text } from '../Blocks';
 import './style.css';
+import { classNames } from 'app/config';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default ({ title, imgUrl, rate, onClick = () => {} }) => {
+export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
-    <Box
-      onClick={onClick}
-      width="100%"
-      height="350px"
-      display="flex"
-      flexDirection={'column'}
-      alignItems={'flex-start'}
-      className="card_wrapper"
-      sx={{
-        cursor: 'pointer',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        objectFit: 'contain',
-        borderRadius: '5px',
-        backgroundImage: `url(${imgUrl})`,
-      }}
-    >
+    <Box onClick={onClick} className={classNames.CARD_WRAPPER}>
       <Text
         style={{
           backgroundColor: rate >= 8 ? 'black' : rate > 5 ? 'black' : 'black',
@@ -36,8 +19,9 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
       >
         {rate}
       </Text>
+      <Img src={imgUrl} alt={title + 'imgage'} width="100%" height={'auto'} />
       <PlayCircleOutline
-        className="play_icon"
+        className={classNames.PLAY_ICON}
         sx={{
           alignSelf: 'center',
           position: 'relative',
@@ -67,49 +51,66 @@ export default ({ title, imgUrl, rate, onClick = () => {} }) => {
 
 export const BigCard = ({ imgUrl, description, title }) => (
   <Box
-    minWidth={['300px', '500px', '800px']}
     borderRadius={'10px'}
     display="flex"
+    width={['400px']}
+    height={'400px'}
     flexDirection={'column'}
     justifyContent={'flex-end'}
     flexWrap="wrap"
-    height={['50vh', 'calc(100vh - 10rem)']}
     style={{
       backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
+      backgroundSize: 'contain',
       backgroundAttachment: 'scroll',
       backgroundPosition: 'center',
-      padding: '3px 10px',
     }}
     background={`url(${imgUrl})`}
   >
-    <Text
-      color="white.0"
-      display={'block'}
-      fontSize={['1rem', '2rem', '2rem']}
-      fontWeight={'bold'}
-      p={0}
-      my={'1rem'}
+    {/* <Box
+      style={{
+        zIndex: '0',
+        background: `linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.3) 50%,
+          rgba(0, 0, 0, 0.3) 60%,
+          rgba(0, 0, 0, 0.3) 10%
+        )`,
+        padding: '15px 10px',
+      }}
     >
-      {title}
-    </Text>
-    <Text variant={'multiLineEllipsis'} color="white.0">
-      {description}
-    </Text>
-    <Text
-      mt={'0.5rem'}
-      mb={'2rem'}
-      fontSize={['1rem']}
-      fontFamily="ubuntu"
-      px={['1rem']}
-      textAlign="center"
-      py={['0.5rem']}
-      bg="primary.0"
-      width={'100px'}
-      color="white.0"
-      borderRadius={['0.4rem']}
-    >
-      Detail
-    </Text>
+      <Text
+        color="white.0"
+        display={'block'}
+        fontSize={['1rem', '2rem', '2rem']}
+        fontWeight={'bold'}
+        p={0}
+        my={'1rem'}
+      >
+        {title}
+      </Text>
+      <Text
+        variant={'multiLineEllipsis'}
+        my={['1rem']}
+        style={{
+          zIndex: '10',
+        }}
+        color="white.0"
+      >
+        {description}
+      </Text>
+      <Text
+        fontSize={['1rem']}
+        fontFamily="ubuntu"
+        px={['2rem']}
+        textAlign="center"
+        py={['0.5rem']}
+        bg="primary.0"
+        width={'100px'}
+        color="white.0"
+        borderRadius={['0.4rem']}
+      >
+        Detail
+      </Text>
+    </Box> */}
   </Box>
 );

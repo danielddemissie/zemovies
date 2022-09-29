@@ -52,7 +52,7 @@ export const Button = styled.button<ButtonProp>`
         },
         secondary: {
           color: '#fff',
-          bg: 'secondary.0',
+          bg: 'primary.3',
         },
         error: {
           color: '#fff',

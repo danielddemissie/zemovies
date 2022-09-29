@@ -1,11 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 type mehtods = 'POST' | 'GET' | 'PUT' | 'DELETE' | 'PATCH';
 
-//defaultBaseURL
-// axios.defaults.baseURL = `${
-//   process.env.REACT_APP_BASE_URL || window.location.origin
-// }`;
-
 interface IAxiosProps {
   method: mehtods;
   route: string;

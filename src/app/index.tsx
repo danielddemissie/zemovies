@@ -15,7 +15,12 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
-import { Signup } from './pages/SignupPage/Loadable';
+import { Auth } from './pages/Auth/Loadable';
+import { DetailPage } from './pages/DetailPage/Loadable';
+import { PopularPage } from './pages/Popular/Loadable';
+import { MoviesPage } from './pages/Movies/Loadable';
+import { SeriesPage } from './pages/Series/Loadable';
+
 import { useTranslation } from 'react-i18next';
 import Layout from './components/Layout';
 
@@ -26,6 +31,7 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <GlobalStyle />
       <BrowserRouter>
         <Helmet
           titleTemplate="%s - React Boilerplate"
@@ -36,12 +42,15 @@ export function App() {
         </Helmet>
         <Layout>
           <Switch>
-            <Route path="/signin" component={Signup} />
+            <Route path="/login" component={Auth} />
             <Route exact path="/" component={HomePage} />
+            <Route exact path="/popular" component={PopularPage} />
+            <Route exact path="/movies" component={MoviesPage} />
+            <Route exact path="/series" component={SeriesPage} />
+            <Route exact path="/detail/:id" component={DetailPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </Layout>
-        <GlobalStyle />
         <ReactQueryDevtools initialIsOpen={false} position={'bottom-right'} />
       </BrowserRouter>
     </QueryClientProvider>

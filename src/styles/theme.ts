@@ -99,7 +99,7 @@ export const theme: Theme = {
   ],
   // Colors
   colors: {
-    primary: ['#0092ca', '#00B7FD', '#393E46'],
+    primary: ['#0092ca', '#00B7FD', '#393E46', '#053F55'],
     secondary: [
       '#FF8058',
       '#e65100',

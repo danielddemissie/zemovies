@@ -1,3 +1,6 @@
 import { Axios } from './axios';
+import { classNames } from './classNames';
 import schemas from './schemas';
-export { Axios, schemas };
+import imgUrls from './url';
+
+export { Axios, schemas, classNames, imgUrls };

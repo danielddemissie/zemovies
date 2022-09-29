@@ -1,6 +1,17 @@
+.card_wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 165px;
+  height: auto;
+  margin: 15px 3px;
+  position: relative;
+  cursor: pointer;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+
 .card_wrapper:hover {
   transform: scale(1.05);
-  transition: transform 1s ease;
 }
 
 .card_wrapper:hover .play_icon {

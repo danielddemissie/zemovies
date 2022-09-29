@@ -1,9 +1,15 @@
 import { useGetUsers } from './users';
-import { usegGetTrending, usegGetUpcoming, usegGetTopRated } from './movies';
+import {
+  usegGetPopular,
+  usegGetUpcoming,
+  usegGetTopRated,
+  usegGetNowPlaying,
+} from './movies';
 
 export {
   useGetUsers as useUsers,
-  usegGetTrending as useTrending,
+  usegGetNowPlaying as useNowPlaying,
+  usegGetPopular as usePopular,
   usegGetUpcoming as useUpcoming,
   usegGetTopRated as useTopRated,
 };
