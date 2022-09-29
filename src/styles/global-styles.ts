@@ -37,4 +37,11 @@ export const GlobalStyle = createGlobalStyle`
     font-family: inherit;
     font-size: inherit;
   }
+
+  .section_header {
+    margin: 6rem auto;
+    color: white;
+    font-size: 2rem;
+  }
+
 `;

@@ -14,18 +14,24 @@ import {
   Divider,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import MovieIcon from '@mui/icons-material/Movie';
 import TheatersIcon from '@mui/icons-material/Theaters';
+import HomeIcon from '@mui/icons-material/Home';
 import HomeCarousel from '../Carousels';
 import { useLocation } from 'react-router-dom';
 
 export default () => {
   const pathName = useLocation().pathname;
-  const pages = ['movies', 'popular', 'series'];
+  const pages = ['home', 'movies', 'popular', 'series'];
   const pagesIcons = {
+    home: (
+      <HomeIcon
+        style={{
+          color: '#0092ca',
+        }}
+      />
+    ),
     movies: (
       <MovieIcon
         style={{
@@ -78,7 +84,7 @@ export default () => {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Link to="/">
-        <Flex pt={'2rem'} justifyContent="center" gap={'1rem'}>
+        <Flex py={'2rem'} justifyContent="center" gap={'1rem'}>
           <Logo
             style={{
               width: '35px',
@@ -97,14 +103,17 @@ export default () => {
       </Link>
 
       <Divider />
-      <Flex flexDirection={'column'}>
+      <Flex
+        flexDirection={'column'}
+        alignItems="center"
+        mx="50px"
+        justifyContent={'center'}
+      >
         {pages.map((menu, index) => (
-          <ListItem key={menu} disablePadding>
+          <ListItem sx={{ alignSelf: 'center' }} key={menu} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <Link to={`${menu}`}>
+              <ListItemIcon>{pagesIcons[menu]}</ListItemIcon>
+              <Link to={menu === 'home' ? '/' : `${menu}`}>
                 <ListItemText
                   style={{
                     textTransform: 'capitalize',
@@ -174,7 +183,7 @@ export default () => {
           >
             {pages.map(page => (
               <Button key={page} onClick={() => {}}>
-                <Link to={`${page}`}>
+                <Link to={page === 'home' ? '/' : `/${page}`}>
                   {pagesIcons[page]}
                   <Text
                     fontFamily={'ubuntu'}

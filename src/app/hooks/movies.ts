@@ -49,3 +49,23 @@ export const usegGetTopRated = () => {
     });
   });
 };
+
+export const useGetdetail = id => {
+  return useQuery(['movie', id], () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/movie/${id}`,
+    });
+  });
+};
+
+export const useGetRelated = id => {
+  return useQuery(['similar', id], () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/movie/${id}'/similar`,
+    });
+  });
+};

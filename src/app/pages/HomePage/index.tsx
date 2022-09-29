@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
-import { Grid, Img, Text } from 'app/components/Blocks';
-import { useTopRated, useNowPlaying, useUpcoming } from 'app/hooks';
+import { Grid, Text } from 'app/components/Blocks';
+import { moviesQuery } from 'app/hooks';
 import imgUrls from 'app/config/url';
 import { useHistory } from 'react-router-dom';
 
@@ -11,9 +11,9 @@ import './style.css';
 import { Container } from '@mui/material';
 
 export function HomePage() {
-  const nowPlaying = useNowPlaying();
-  const upcomingQuery = useUpcoming();
-  const topRatedQuery = useTopRated();
+  const nowPlaying = moviesQuery.usegGetNowPlaying();
+  const upcomingQuery = moviesQuery.usegGetUpcoming();
+  const topRatedQuery = moviesQuery.usegGetTopRated();
 
   const history = useHistory();
 

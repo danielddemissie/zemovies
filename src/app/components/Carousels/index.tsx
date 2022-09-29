@@ -3,12 +3,12 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import { useHistory } from 'react-router-dom';
-import { usePopular } from 'app/hooks';
+import { moviesQuery } from 'app/hooks';
 import { Box, Text } from '../Blocks';
 import { imgUrls } from 'app/config/';
 
 const HomeCarousel = () => {
-  const trendingQuery = usePopular();
+  const trendingQuery = moviesQuery.usegGetPopular();
   const history = useHistory();
 
   const handleClick = id => {
@@ -21,8 +21,10 @@ const HomeCarousel = () => {
       className="main__nav"
       height={['70vh', '100vh']}
       style={{
+        cursor: 'pointer',
         backgroundImage: `url(${imgUrls.bigImages}/${item?.backdrop_path})`,
       }}
+      onClick={() => handleClick(item?.id)}
     >
       <div className="nav">
         <h3>{item?.title || item?.name}</h3>

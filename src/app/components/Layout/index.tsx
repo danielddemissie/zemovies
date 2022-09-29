@@ -11,7 +11,11 @@ export default ({ children }) => {
     <>
       <Header />
       <Box
-        my={pathName === '/' ? ['3rem'] : ['10rem']}
+        my={
+          pathName === '/' || pathName.startsWith('/detail')
+            ? ['0rem']
+            : ['10rem']
+        }
         minHeight={['calc(100vh - 20rem)']}
       >
         {children}

@@ -1,8 +1,9 @@
-import { PlayCircleOutline } from '@mui/icons-material';
+import { PlayCircleOutline, Star, YouTube } from '@mui/icons-material';
 import React from 'react';
-import { Box, Img, Text } from '../Blocks';
+import { Box, Flex, Img, Text, Button } from '../Blocks';
 import './style.css';
 import { classNames } from 'app/config';
+import { imgUrls } from 'app/config';
 
 export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
@@ -23,7 +24,7 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
         color={rate >= 8 ? 'gold' : rate > 6 ? 'green' : 'red'}
         fontSize={'1.3rem'}
       >
-        {rate}
+        {+rate.toFixed(1)}
       </Text>
       <Img
         style={{ position: 'relative' }}
@@ -47,68 +48,113 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   );
 };
 
-export const BigCard = ({ imgUrl, description, title }) => (
-  <Box
-    borderRadius={'10px'}
-    display="flex"
-    width={['400px']}
-    height={'400px'}
-    flexDirection={'column'}
-    justifyContent={'flex-end'}
+export const BigCard = ({ detail }) => (
+  <Flex
+    flexDirection={['column', 'row']}
+    alignItems="flex-start"
     flexWrap="wrap"
-    style={{
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'contain',
-      backgroundAttachment: 'scroll',
-      backgroundPosition: 'center',
-    }}
-    background={`url(${imgUrl})`}
+    mx="auto"
+    justifyContent="space-evenly"
+    maxWidth={['lg']}
   >
-    {/* <Box
-      style={{
-        zIndex: '0',
-        background: `linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.3) 50%,
-          rgba(0, 0, 0, 0.3) 60%,
-          rgba(0, 0, 0, 0.3) 10%
-        )`,
-        padding: '15px 10px',
-      }}
+    <Box className="big_card_wrapper" width={['100%', '400px']}>
+      <Img
+        borderRadius={'10px'}
+        style={{ position: 'relative' }}
+        src={`${imgUrls.mediumImages}${detail.poster_path}`}
+        alt={detail.title || detail.original_title + 'image'}
+      />
+    </Box>
+    <Box
+      color="white.0"
+      mx={['auto', 0]}
+      fontSize={['12px', '1rem']}
+      width={['90%', '60%']}
     >
-      <Text
-        color="white.0"
-        display={'block'}
-        fontSize={['1rem', '2rem', '2rem']}
-        fontWeight={'bold'}
-        p={0}
-        my={'1rem'}
-      >
-        {title}
+      <Text as="h2">{detail.title || detail.original_title}</Text>
+      <Text as="h3" variant="ellipsis">
+        {detail.tagline}
       </Text>
-      <Text
-        variant={'multiLineEllipsis'}
-        my={['1rem']}
-        style={{
-          zIndex: '10',
-        }}
-        color="white.0"
-      >
-        {description}
-      </Text>
-      <Text
-        fontSize={['1rem']}
-        fontFamily="ubuntu"
-        px={['2rem']}
-        textAlign="center"
-        py={['0.5rem']}
-        bg="primary.0"
-        width={'100px'}
-        color="white.0"
-        borderRadius={['0.4rem']}
-      >
-        Detail
-      </Text>
-    </Box> */}
-  </Box>
+
+      <Box>
+        <Text as={'h4'}>Genre</Text>
+        <Flex>
+          {detail.genres?.map(genre => (
+            <Text key={genre.id} mr="10px">
+              {genre.name}
+            </Text>
+          ))}
+        </Flex>
+      </Box>
+      <Flex my="1rem" alignItems="start" justifyContent="start" gap="1rem">
+        <Flex flexDirection={'column'} alignItems={'start'}>
+          <Box>
+            <Text>Rating</Text>
+            <Star
+              sx={{
+                color: '#FAAF00',
+              }}
+            />
+          </Box>
+          <Box>
+            <Text fontSize={'1.2rem'}>
+              {+detail.vote_average.toFixed(1)}/10
+            </Text>
+            <Text fontSize={'1.2rem'}>
+              ({(detail.vote_count / 1000).toFixed(1)}K)
+            </Text>
+          </Box>
+        </Flex>
+        <Box>
+          <Text>Release Date</Text>
+          <Text display={'block'}>
+            {new Date(detail.release_date).toDateString()}
+          </Text>
+        </Box>
+      </Flex>
+
+      <Flex my="1rem" alignItems={'start'} justifyContent="start" gap="5rem">
+        <Box>
+          {' '}
+          <Text>
+            <Text display="block">Duration</Text>
+            {' ' +
+              (detail.runtime / 60).toString().split('.')[0] +
+              'Hr ' +
+              (detail.runtime % 60)}
+            {'Min'}
+          </Text>
+        </Box>
+        <Box alignSelf={'start'}>
+          <Text>
+            <Text display={'block'}>Language</Text>
+            {detail.spoken_languages[0].name}
+          </Text>
+        </Box>
+      </Flex>
+      <Box width="100%">
+        <Text>Overview</Text>
+        <Text variant="multiLineEllipsis">{detail.overview}</Text>
+      </Box>
+      <Box my="1rem">
+        <Text as="h4">Trailer</Text>
+        <Button
+          style={{
+            backgroundImage: `linear-gradient(to right top, #b16791, #b76895, #bd6999, #c3699c, #c96aa0, #c3659a, #be5f95, #b85a8f, #a54e7f, #93416f, #813660, #6f2a51)`,
+          }}
+          color="#fff"
+          borderRadius={'10px'}
+          px="1rem"
+          py="0.5rem"
+        >
+          Youtube{' '}
+          <YouTube
+            sx={{
+              ml: '10px',
+            }}
+          />
+        </Button>
+      </Box>
+    </Box>
+  </Flex>
 );

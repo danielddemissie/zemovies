@@ -1,15 +1,4 @@
-import { useGetUsers } from './users';
-import {
-  usegGetPopular,
-  usegGetUpcoming,
-  usegGetTopRated,
-  usegGetNowPlaying,
-} from './movies';
+import * as userQuery from './users';
+import * as moviesQuery from './movies';
 
-export {
-  useGetUsers as useUsers,
-  usegGetNowPlaying as useNowPlaying,
-  usegGetPopular as usePopular,
-  usegGetUpcoming as useUpcoming,
-  usegGetTopRated as useTopRated,
-};
+export { moviesQuery, userQuery };

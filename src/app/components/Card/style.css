@@ -9,6 +9,16 @@
   transition: transform 0.5s ease;
 }
 
+.big_card_wrapper {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 15px 0px;
+  position: relative;
+  cursor: pointer;
+  object-fit: contain;
+}
+
 .card_wrapper:hover {
   transform: scale(1.1);
 }
@@ -45,6 +55,11 @@
 }
 
 .card_wrapper img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+}
+.big_card_wrapper img {
   max-width: 100%;
   object-fit: contain;
   border-radius: 3px;
