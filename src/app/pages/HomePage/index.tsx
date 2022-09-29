@@ -30,84 +30,7 @@ export function HomePage() {
             margin: '0 10px',
           }}
         >
-          <Text as="h1" mt="-5rem" mb="3rem" color={'white.0'}>
-            Now Playing Movies
-          </Text>
-          <Grid
-            container
-            direction={'row'}
-            alignItems="center"
-            justifyContent={'center'}
-            rowGap={'1rem'}
-          >
-            {nowPlaying.isLoading ? (
-              <Text>Loading...</Text>
-            ) : nowPlaying.isError ? (
-              <Text>Error occured</Text>
-            ) : (
-              nowPlaying.data?.data.results
-                ?.slice(0, 12)
-                .map((movie, index) => (
-                  <Grid item lg={2} sm={6} xs={11} p="10px" key={index}>
-                    <Card
-                      onClick={() => {
-                        history.push(`/detail/${movie.id}`);
-                      }}
-                      title={movie.title}
-                      imgUrl={imgUrls.mediumImages + movie.backdrop_path}
-                      rate={movie.vote_average}
-                    />
-                  </Grid>
-                ))
-            )}
-            <Text textAlign={'left'}>View More</Text>
-          </Grid>
-        </section>
-
-        <section
-          style={{
-            margin: '0 10px',
-          }}
-        >
-          <Text my="5rem" as={'h1'} color="white.0" display="block">
-            Upcoming Movies
-          </Text>
-          <Grid
-            container
-            direction={'row'}
-            alignItems="center"
-            justifyContent={'center'}
-            rowGap={'1rem'}
-          >
-            {upcomingQuery.isLoading ? (
-              <Text>Loading...</Text>
-            ) : upcomingQuery.isError ? (
-              <Text>Error occured</Text>
-            ) : (
-              upcomingQuery.data?.data.results
-                ?.slice(0, 12)
-                .map((movie, index) => (
-                  <Grid item lg={2} sm={6} p={'10px'} xs={11} key={index}>
-                    <Card
-                      onClick={() => {
-                        history.push(`/detail/${movie.id}`);
-                      }}
-                      title={movie.title}
-                      imgUrl={imgUrls.smallImages + movie.backdrop_path}
-                      rate={movie.vote_average}
-                    />
-                  </Grid>
-                ))
-            )}
-          </Grid>
-        </section>
-
-        <section
-          style={{
-            margin: '0 10px',
-          }}
-        >
-          <Text my="5rem" color={'white.0'} as={'h1'} display="block">
+          <Text className="section_header" as="h2">
             Top Rated Movies
           </Text>
           <Grid
@@ -125,19 +48,95 @@ export function HomePage() {
               topRatedQuery.data?.data.results
                 ?.slice(0, 12)
                 .map((movie, index) => (
-                  <Grid item lg={2} sm={6} xs={11} p="10px" key={index}>
+                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
                     <Card
                       onClick={() => {
                         history.push(`/detail/${movie.id}`);
                       }}
                       title={movie.title}
-                      imgUrl={imgUrls.mediumImages + movie.backdrop_path}
+                      imgUrl={imgUrls.mediumImages + movie.poster_path}
                       rate={movie.vote_average}
                     />
                   </Grid>
                 ))
             )}
             <Text textAlign={'left'}>View More</Text>
+          </Grid>
+        </section>
+        <section
+          style={{
+            margin: '0 10px',
+          }}
+        >
+          <Text className="section_header" as={'h2'}>
+            Now Playing Movies
+          </Text>
+          <Grid
+            container
+            direction={'row'}
+            alignItems="center"
+            justifyContent={'center'}
+            rowGap={'1rem'}
+          >
+            {nowPlaying.isLoading ? (
+              <Text>Loading...</Text>
+            ) : nowPlaying.isError ? (
+              <Text>Error occured</Text>
+            ) : (
+              nowPlaying.data?.data.results
+                ?.slice(0, 12)
+                .map((movie, index) => (
+                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
+                    <Card
+                      onClick={() => {
+                        history.push(`/detail/${movie.id}`);
+                      }}
+                      title={movie.title}
+                      imgUrl={imgUrls.mediumImages + movie.poster_path}
+                      rate={movie.vote_average}
+                    />
+                  </Grid>
+                ))
+            )}
+            <Text textAlign={'left'}>View More</Text>
+          </Grid>
+        </section>
+
+        <section
+          style={{
+            margin: '0 10px',
+          }}
+        >
+          <Text className="section_header" as="h2">
+            Upcoming Movies
+          </Text>
+          <Grid
+            container
+            direction={'row'}
+            alignItems="center"
+            justifyContent={'center'}
+            rowGap={'1rem'}
+          >
+            {upcomingQuery.isLoading ? (
+              <Text>Loading...</Text>
+            ) : upcomingQuery.isError ? (
+              <Text>Error occured</Text>
+            ) : (
+              upcomingQuery.data?.data.results
+                ?.slice(0, 12)
+                .map((movie, index) => (
+                  <Grid item lg={2} sm={4} p={'10px'} xs={11} key={index}>
+                    <Card
+                      onClick={() => {
+                        history.push(`/detail/${movie.id}`);
+                      }}
+                      title={movie.title}
+                      imgUrl={imgUrls.smallImages + movie.poster_path}
+                      rate={movie.vote_average}
+                    />
+                  </Grid>
+                ))
+            )}
           </Grid>
         </section>
       </Container>

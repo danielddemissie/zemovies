@@ -12,12 +12,17 @@ export function DetailPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
 
-      <Flex justifyContent={'center'} alignItems={'center'}>
-        <Box>
-          <Card imgUrl={''} title={'title'} rate={9} />
-        </Box>
-        <Box>Detail description</Box>
-      </Flex>
+      <Box minHeight={'400px'} width="165px">
+        <img
+          alt=""
+          style={{
+            maxWidth: '160px',
+            height: '400px',
+          }}
+          srcSet="https://image.tmdb.org/t/p/w500/7NCRlXDQlHhFZFk3y1HJyJgGVHB.jpg"
+        />
+      </Box>
+      <Box>Detail description</Box>
 
       <Box>Cast</Box>
 

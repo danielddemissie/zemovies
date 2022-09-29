@@ -6,39 +6,37 @@ import { classNames } from 'app/config';
 
 export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
-    <Box onClick={onClick} className={classNames.CARD_WRAPPER}>
+    <Box
+      onClick={onClick}
+      sx={{
+        width: {
+          lg: '200px',
+        },
+      }}
+      className={classNames.CARD_WRAPPER}
+    >
       <Text
+        className="rate"
         style={{
           backgroundColor: rate >= 8 ? 'black' : rate > 5 ? 'black' : 'black',
         }}
-        borderRadius="3px"
-        px={'10px'}
-        zIndex="10"
         color={rate >= 8 ? 'gold' : rate > 6 ? 'green' : 'red'}
         fontSize={'1.3rem'}
       >
         {rate}
       </Text>
-      <Img src={imgUrl} alt={title + 'image'} />
-      <PlayCircleOutline
-        className={classNames.PLAY_ICON}
-        sx={{
-          alignSelf: 'center',
-          position: 'relative',
-          top: '40%',
-          width: '50px',
-          height: '50px',
-          color: '#ffffffe1',
-        }}
+      <Img
+        style={{ position: 'relative' }}
+        src={imgUrl}
+        alt={title + 'image'}
       />
+
+      <PlayCircleOutline className={classNames.PLAY_ICON} />
       <Text
-        style={{
-          position: 'relative',
-          top: '70%',
-        }}
-        fontWeight="bold"
+        fontWeight="400"
         color="white.0"
         px={'5px'}
+        py={['5px']}
         variant="ellipsis"
         width="90%"
         fontSize={['1rem']}

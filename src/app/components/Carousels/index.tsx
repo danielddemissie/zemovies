@@ -59,6 +59,7 @@ const HomeCarousel = () => {
           autoPlay
           disableButtonsControls
           disableDotsControls
+          keyboardNavigation
           mouseTracking
           autoPlayInterval={3000}
           items={items}
