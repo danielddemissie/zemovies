@@ -52,7 +52,7 @@ export function DetailPage() {
         )}
       </Box>
       <Box mt={['140vh', '10rem']} maxWidth={'xl'} mx="auto">
-        <Text mt={'100rem'} className="section_header" as="h2">
+        <Text mt={'10rem'} className="section_header" as="h2">
           Related Movies
         </Text>
         <Grid
