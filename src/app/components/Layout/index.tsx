@@ -8,7 +8,9 @@ export default ({ children }) => {
   return (
     <>
       <Header />
-      <Box my={['10rem']}>{children}</Box>
+      <Box my={['10rem']} minHeight={['calc(100vh - 20rem)']}>
+        {children}
+      </Box>
       <Footer />
     </>
   );

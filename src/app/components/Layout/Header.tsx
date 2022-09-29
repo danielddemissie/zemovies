@@ -6,7 +6,6 @@ import { ReactComponent as Logo } from '../../../assets/images/video.svg';
 import {
   AppBar,
   SwipeableDrawer,
-  List,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -98,11 +97,7 @@ export default () => {
       </Link>
 
       <Divider />
-      <List
-        sx={{
-          display: 'block',
-        }}
-      >
+      <Flex flexDirection={'column'}>
         {pages.map((menu, index) => (
           <ListItem key={menu} disablePadding>
             <ListItemButton>
@@ -121,7 +116,7 @@ export default () => {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </Flex>
     </Box>
   );
 
@@ -139,11 +134,19 @@ export default () => {
         <Flex
           flexDirection={['row']}
           alignContent={['center']}
-          px={['10px', 0]}
-          justifyContent={['space-between', 'space-around']}
+          px={['10px', '20px', 0]}
+          justifyContent={['space-between', 'space-around', 'space-around']}
           flexWrap="wrap"
         >
-          <Box display="flex">
+          <Box
+            sx={{
+              display: {
+                xs: !localStorage.getItem('token') ? 'none' : 'flex',
+                sm: 'flex',
+                md: 'flex',
+              },
+            }}
+          >
             <Link to="/">
               <Flex alignItems={'center'} gap={'1rem'}>
                 <Logo
@@ -203,33 +206,41 @@ export default () => {
             />
           </Box>
 
-          <Box
-            sx={{
-              display: { xs: 'none', md: 'flex' },
-              alignItems: 'center',
-            }}
-          >
-            <Link to={'/login'}>
-              <Button
-                sx={{
-                  fontFamily: 'ubuntu',
-                  fontSize: '0.8rem',
-                  fontWeight: 400,
-                  px: '2.3rem',
-                  py: '0.5rem',
-                  color: '#fff',
-                  background: pathName === '/login' ? '#053F55' : '#0092ca',
-                  '&:hover': {
-                    background: '#053F55',
-                    transition: 'ease 10ms',
-                    transform: 'scale(1.05)',
-                  },
-                }}
-              >
-                login
-              </Button>
-            </Link>
-          </Box>
+          {!localStorage.getItem('token') && (
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'flex' },
+                alignItems: 'center',
+              }}
+            >
+              <Link to={'/login'}>
+                <Button
+                  sx={{
+                    fontFamily: 'ubuntu',
+                    fontSize: {
+                      lg: '0.8rem',
+                      xs: '0.6rem',
+                    },
+                    fontWeight: 400,
+                    px: {
+                      lg: '2.3rem',
+                      xs: '1.4rem',
+                    },
+                    py: '0.5rem',
+                    color: '#fff',
+                    background: pathName === '/login' ? '#053F55' : '#0092ca',
+                    '&:hover': {
+                      background: '#053F55',
+                      transition: 'ease 10ms',
+                      transform: 'scale(1.05)',
+                    },
+                  }}
+                >
+                  login
+                </Button>
+              </Link>
+            </Box>
+          )}
         </Flex>
 
         <SwipeableDrawer

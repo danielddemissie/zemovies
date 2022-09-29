@@ -127,6 +127,9 @@ export function HomePage() {
                 .map((movie, index) => (
                   <Grid item lg={2} sm={6} xs={11} p="10px" key={index}>
                     <Card
+                      onClick={() => {
+                        history.push(`/detail/${movie.id}`);
+                      }}
                       title={movie.title}
                       imgUrl={imgUrls.mediumImages + movie.backdrop_path}
                       rate={movie.vote_average}

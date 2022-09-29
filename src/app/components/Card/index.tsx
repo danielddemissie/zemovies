@@ -19,7 +19,7 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
       >
         {rate}
       </Text>
-      <Img src={imgUrl} alt={title + 'imgage'} width="100%" height={'auto'} />
+      <Img src={imgUrl} alt={title + 'image'} />
       <PlayCircleOutline
         className={classNames.PLAY_ICON}
         sx={{

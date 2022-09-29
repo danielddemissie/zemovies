@@ -27,6 +27,7 @@ export function Auth() {
       </Helmet>
       <Flex
         maxWidth="lg"
+        width={['90%', '90%', '100%']}
         alignItems={'center'}
         flexDirection={isSignin ? ['column', 'row'] : ['column', 'row-reverse']}
         mx="auto"
@@ -183,6 +184,7 @@ export function Auth() {
                   px={['2rem']}
                   type="submit"
                   py={['0.5rem']}
+                  my={['1.5rem']}
                   borderRadius={['1rem']}
                 >
                   {isSignin ? 'sign in' : 'sign up'}
@@ -196,7 +198,7 @@ export function Auth() {
         <Box
           bg="black.1"
           mt={['10px', 0]}
-          width={['100%', '50%']}
+          width={['100%', '30%', '50%']}
           display="flex"
           alignItems={'center'}
           flexDirection="column"
@@ -204,7 +206,7 @@ export function Auth() {
           borderRadius="10px"
           height={'100%'}
         >
-          <Text as="h4" color="white.0" textAlign={'center'}>
+          <Text as="h4" mx={['10px']} color="white.0" textAlign={'center'}>
             {isSignin ? "Don't have an account?" : 'Continue with my account?'}
           </Text>
           <Button
