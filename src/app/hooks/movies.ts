@@ -69,3 +69,23 @@ export const useGetRelated = id => {
     });
   });
 };
+
+export const useGetVideo = id => {
+  return useQuery(['video', id], () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/movie/${id}'/videos`,
+    });
+  });
+};
+
+export const useGetCredit = id => {
+  return useQuery(['credit', id], () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/movie/${id}'/credits`,
+    });
+  });
+};

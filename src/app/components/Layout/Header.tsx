@@ -18,7 +18,7 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import MovieIcon from '@mui/icons-material/Movie';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import HomeIcon from '@mui/icons-material/Home';
-import HomeCarousel from '../Carousels';
+import { HomeCarousel } from '../Carousels';
 import { useLocation } from 'react-router-dom';
 
 export default () => {

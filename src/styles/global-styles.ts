@@ -39,9 +39,9 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .section_header {
-    margin: 6rem auto;
+    margin: 3rem auto;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
 `;

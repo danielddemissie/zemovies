@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { Grid, Text } from 'app/components/Blocks';
 import { moviesQuery } from 'app/hooks';
-import imgUrls from 'app/config/url';
+import { imgUrls } from 'app/config/';
 import { useHistory } from 'react-router-dom';
 
 import 'react-alice-carousel/lib/alice-carousel.css';

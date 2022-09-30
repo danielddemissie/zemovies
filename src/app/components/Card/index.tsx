@@ -4,6 +4,11 @@ import { Box, Flex, Img, Text, Button } from '../Blocks';
 import './style.css';
 import { classNames } from 'app/config';
 import { imgUrls } from 'app/config';
+import { Dialog, Grid } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import { CastCarousel } from '../Carousels';
+import { ReactComponent as IMDBIcon } from '../../../assets/icons/imdb.svg';
 
 export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
@@ -48,113 +53,199 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   );
 };
 
-export const BigCard = ({ detail }) => (
-  <Flex
-    flexDirection={['column', 'row']}
-    alignItems="flex-start"
-    flexWrap="wrap"
-    mx="auto"
-    justifyContent="space-evenly"
-    maxWidth={['lg']}
-  >
-    <Box className="big_card_wrapper" width={['100%', '400px']}>
-      <Img
-        borderRadius={'10px'}
-        style={{ position: 'relative' }}
-        src={`${imgUrls.mediumImages}${detail.poster_path}`}
-        alt={detail.title || detail.original_title + 'image'}
-      />
-    </Box>
-    <Box
-      color="white.0"
-      mx={['auto', 0]}
-      fontSize={['12px', '1rem']}
-      width={['90%', '60%']}
+export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [videoKey, setVideoKey] = React.useState('');
+
+  return (
+    <Flex
+      alignItems="flex-start"
+      justifyContent="flex-start"
+      flexDirection={['row']}
+      gap={'20px'}
     >
-      <Text as="h2">{detail.title || detail.original_title}</Text>
-      <Text as="h3" variant="ellipsis">
-        {detail.tagline}
-      </Text>
-
-      <Box>
-        <Text as={'h4'}>Genre</Text>
-        <Flex>
-          {detail.genres?.map(genre => (
-            <Text key={genre.id} mr="10px">
-              {genre.name}
-            </Text>
-          ))}
-        </Flex>
-      </Box>
-      <Flex my="1rem" alignItems="start" justifyContent="start" gap="1rem">
-        <Flex flexDirection={'column'} alignItems={'start'}>
-          <Box>
-            <Text>Rating</Text>
-            <Star
-              sx={{
-                color: '#FAAF00',
-              }}
-            />
-          </Box>
-          <Box>
-            <Text fontSize={'1.2rem'}>
-              {+detail.vote_average.toFixed(1)}/10
-            </Text>
-            <Text fontSize={'1.2rem'}>
-              ({(detail.vote_count / 1000).toFixed(1)}K)
-            </Text>
-          </Box>
-        </Flex>
-        <Box>
-          <Text>Release Date</Text>
-          <Text display={'block'}>
-            {new Date(detail.release_date).toDateString()}
-          </Text>
-        </Box>
-      </Flex>
-
-      <Flex my="1rem" alignItems={'start'} justifyContent="start" gap="5rem">
-        <Box>
-          {' '}
-          <Text>
-            <Text display="block">Duration</Text>
-            {' ' +
-              (detail.runtime / 60).toString().split('.')[0] +
-              'Hr ' +
-              (detail.runtime % 60)}
-            {'Min'}
-          </Text>
-        </Box>
-        <Box alignSelf={'start'}>
-          <Text>
-            <Text display={'block'}>Language</Text>
-            {detail.spoken_languages[0].name}
-          </Text>
-        </Box>
-      </Flex>
-      <Box width="100%">
-        <Text>Overview</Text>
-        <Text variant="multiLineEllipsis">{detail.overview}</Text>
-      </Box>
-      <Box my="1rem">
-        <Text as="h4">Trailer</Text>
-        <Button
+      <Grid
+        width={['100%', '300px', '350px', '350px']}
+        display={{
+          lg: 'flex',
+          sm: 'flex',
+          xs: 'none',
+        }}
+        item
+        flexDirection={'column'}
+      >
+        <Img
           style={{
-            backgroundImage: `linear-gradient(to right top, #b16791, #b76895, #bd6999, #c3699c, #c96aa0, #c3659a, #be5f95, #b85a8f, #a54e7f, #93416f, #813660, #6f2a51)`,
+            position: 'relative',
+            borderRadius: '10px',
+            maxHeight: '500px',
           }}
-          color="#fff"
-          borderRadius={'10px'}
-          px="1rem"
-          py="0.5rem"
+          src={`${imgUrls.mediumImages}${detail.poster_path}`}
+          alt={detail.title || detail.original_title + 'image'}
+        />
+        <CastCarousel casts={credit?.cast} />
+      </Grid>
+      <Box
+        color="white.0"
+        mx={['auto', 0]}
+        width={['100%', '90%']}
+        // width={['90%', '90%']}
+        fontSize={['12px', '1rem']}
+      >
+        <Text as="h2">{detail.title || detail.original_title}</Text>
+        <Text as="h3" color={'white.2'} variant="multiLineEllipsis">
+          {detail.tagline}
+        </Text>
+        <Box>
+          <Text as={'h4'}>Genre</Text>
+          <Flex>
+            {detail.genres.length > 0 &&
+              detail.genres?.map(genre => (
+                <Text key={genre.id} mr="10px" color={'white.2'}>
+                  {genre.name}
+                </Text>
+              ))}
+          </Flex>
+        </Box>
+        <Flex
+          my="1rem"
+          alignItems="start"
+          justifyContent="start"
+          gap={['1rem', '5rem']}
         >
-          Youtube{' '}
-          <YouTube
-            sx={{
-              ml: '10px',
+          <Flex flexDirection={'column'} alignItems={'start'}>
+            <Box>
+              <Text>Rating</Text>
+              <Star
+                sx={{
+                  color: '#FAAF00',
+                }}
+              />
+            </Box>
+            <Box>
+              <Text fontSize={'1.2rem'} color={'white.2'}>
+                {+detail.vote_average.toFixed(1)}/10
+              </Text>
+              <Text fontSize={'1.2rem'} color={'white.2'}>
+                ({(detail.vote_count / 1000).toFixed(1)}K)
+              </Text>
+            </Box>
+          </Flex>
+          <Box>
+            <Text>Release Date</Text>
+            <Text display={'block'} mt="5px" color={'white.2'}>
+              {new Date(detail.release_date).toDateString()}
+            </Text>
+          </Box>
+        </Flex>
+        <Flex
+          my="1rem"
+          alignItems={'start'}
+          justifyContent="start"
+          gap={['1rem', '7rem']}
+        >
+          <Box>
+            {' '}
+            <Text display="block">Duration</Text>
+            <Text color={'white.2'}>
+              {' ' +
+                (detail.runtime / 60).toString().split('.')[0] +
+                'Hr ' +
+                (detail.runtime % 60)}
+              {'Min'}
+            </Text>
+          </Box>
+          <Box alignSelf={'start'}>
+            <Text display={'block'}>Language</Text>
+            {detail?.spoken_languages?.map(_lang => (
+              <Text color={'white.2'} mr="10px">
+                {_lang.name}
+              </Text>
+            ))}
+          </Box>
+        </Flex>{' '}
+        <Box>
+          <Text>Overview</Text>
+          <Text variant="multiLineEllipsis" color={'white.2'}>
+            {detail.overview}
+          </Text>
+        </Box>
+        <Text as="h4">Videos</Text>
+        <Grid
+          container
+          mt={'1rem'}
+          rowGap="1rem"
+          columnGap={'1rem'}
+          columns={{ lg: 12, md: 6, sm: 6, xs: 12 }}
+        >
+          {videos?.length > 0 ? (
+            videos?.slice(0, 6).map(_video => (
+              <Grid item>
+                <Button
+                  style={{
+                    backgroundImage: `linear-gradient(to right top, #b16791, #b76895, #bd6999, #c3699c, #c96aa0, #c3659a, #be5f95, #b85a8f, #a54e7f, #93416f, #813660, #6f2a51)`,
+                  }}
+                  color="#fff"
+                  borderRadius={'10px'}
+                  px="0.5rem"
+                  py="0.5rem"
+                  onClick={() => {
+                    setOpenModal(true);
+                    setVideoKey(_video?.key);
+                  }}
+                >
+                  <Text variant="ellipsis">{_video?.type}</Text>
+                  <YouTube
+                    sx={{
+                      ml: '10px',
+                    }}
+                  />
+                </Button>
+              </Grid>
+            ))
+          ) : (
+            <Text>NO VIDEOS AVAILABLE!</Text>
+          )}
+        </Grid>
+        <Box>
+          <Text as="h4" my="1rem">
+            IMDB
+          </Text>
+          <IMDBIcon
+            style={{
+              width: '50px',
+              height: '50px',
             }}
           />
-        </Button>
+        </Box>
+        <Dialog
+          onClose={() => setOpenModal(false)}
+          open={open}
+          fullWidth={true}
+          fullScreen={fullScreen}
+          sx={{
+            '& .MuiDialog-paper': {
+              background:
+                'linear-gradient(to right top, #051937, #001b35, #001d32, #001e2e, #011f2a)',
+            },
+          }}
+        >
+          <iframe
+            title={detail?.title}
+            width={'100%'}
+            height="100%"
+            style={{
+              minHeight: '500px',
+            }}
+            itemType="text/html"
+            src={`https://www.youtube-nocookie.com/embed/${videoKey}?autoplay=0&amp;hl=en&amp;modestbranding=1&amp;fs=1&amp;autohide=1`}
+            frameBorder="0"
+            allowFullScreen
+            tabIndex={-1}
+          ></iframe>
+        </Dialog>
       </Box>
-    </Box>
-  </Flex>
-);
+    </Flex>
+  );
+};

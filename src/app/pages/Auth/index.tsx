@@ -26,12 +26,12 @@ export function Auth() {
         />
       </Helmet>
       <Flex
-        maxWidth="lg"
+        maxWidth="md"
         width={['90%', '90%', '100%']}
         alignItems={'center'}
         flexDirection={isSignin ? ['column', 'row'] : ['column', 'row-reverse']}
         mx="auto"
-        mt={'5rem'}
+        mt={[0, '20rem']}
         height={['80vh', '50vh']}
         justifyContent={'space-between'}
         style={{

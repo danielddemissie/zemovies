@@ -4,7 +4,7 @@ import React from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import { useHistory } from 'react-router-dom';
 import { moviesQuery } from 'app/hooks';
-import { Box, Text } from '../Blocks';
+import { Box, Text, Img, Flex } from '../Blocks';
 import { imgUrls } from 'app/config/';
 
 const HomeCarousel = () => {
@@ -19,7 +19,7 @@ const HomeCarousel = () => {
     <Box
       key={item?.id}
       className="main__nav"
-      height={['70vh', '100vh']}
+      height={['100vh', '100vh']}
       style={{
         cursor: 'pointer',
         backgroundImage: `url(${imgUrls.bigImages}/${item?.backdrop_path})`,
@@ -63,12 +63,48 @@ const HomeCarousel = () => {
           disableDotsControls
           keyboardNavigation
           mouseTracking
-          autoPlayInterval={3000}
+          autoPlayInterval={2000}
           items={items}
         />
       )}
     </>
   );
 };
+const CastCarousel = ({ casts }) => {
+  const responsive = {
+    1024: {
+      items: 1,
+    },
+  };
+  const items = casts?.map((item: any) => (
+    <Flex flexDirection="column" alignItems={'center'} py="10px" key={item?.id}>
+      <Img
+        width="80px"
+        height="80px"
+        borderRadius={'50%'}
+        src={imgUrls.smallImages + item.profile_path}
+        alt={item.name}
+      />
+      <Text color="white.0" fontSize={'1rem'} py="10px" display={'block'}>
+        {item.name}
+      </Text>
+    </Flex>
+  ));
 
-export default HomeCarousel;
+  return (
+    <AliceCarousel
+      infinite
+      autoPlay
+      disableButtonsControls
+      disableDotsControls
+      keyboardNavigation
+      mouseTracking
+      autoWidth
+      responsive={responsive}
+      autoPlayInterval={1000}
+      items={items}
+    />
+  );
+};
+
+export { HomeCarousel, CastCarousel };

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { Box, Flex, Button, Grid, Text } from 'app/components/Blocks';
+import { Box, Grid, Text } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 import { BigCard, Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
@@ -10,8 +10,13 @@ import { imgUrls } from 'app/config';
 export function DetailPage() {
   const param = useParams<{ id: string }>();
   const history = useHistory();
+  const [openModal, setOpenModal] = React.useState(false);
+
   const detailQuery = moviesQuery.useGetdetail(param?.id);
   const relatedQuery = moviesQuery.useGetRelated(param?.id);
+  const videosQuery = moviesQuery.useGetVideo(param?.id);
+  const movieCredit = moviesQuery.useGetCredit(param?.id);
+  const videos = videosQuery.data?.data?.results;
 
   return (
     <>
@@ -29,24 +34,31 @@ export function DetailPage() {
           <Box>
             <Box
               className="main__nav"
+              height={['80vh', '50vh']}
               sx={{
-                display: {
-                  xs: 'none',
-                  lg: 'flex',
+                zIndex: 0,
+                backgroundImage: {
+                  lg: `url(${imgUrls.bigImages}/${detailQuery.data?.data?.backdrop_path})`,
+                  sm: `url(${imgUrls.bigImages}/${detailQuery.data?.data?.backdrop_path})`,
+                  md: `url(${imgUrls.bigImages}/${detailQuery.data?.data?.backdrop_path})`,
+                  xs: `url(${imgUrls.mediumImages}/${detailQuery.data?.data?.poster_path})`,
                 },
-                zIndex: '0',
-              }}
-              height={['80vh']}
-              style={{
-                backgroundImage: `url(${imgUrls.bigImages}/${detailQuery.data?.data?.backdrop_path})`,
               }}
             />
             <Box
-              position={'absolute'}
-              top={['-20px', '25%']}
-              left={['0px', '15%']}
+              position={['relative', 'absolute']}
+              top={['-20px', '20%', '25%']}
+              left={['0px', '5%', '5%', '15%']}
+              mx="10px"
+              width={['90%', '50%', '60%', '60%']}
             >
-              <BigCard detail={detailQuery.data?.data} />
+              <BigCard
+                open={openModal}
+                setOpenModal={setOpenModal}
+                detail={detailQuery.data?.data}
+                videos={videos}
+                credit={movieCredit.data?.data}
+              />
             </Box>
           </Box>
         )}
@@ -56,9 +68,9 @@ export function DetailPage() {
           margin: '0 10px',
         }}
       >
-        <Box mt={['140vh', '10rem']} maxWidth={'xl'} mx="auto">
-          <Text mt={'10rem'} className="section_header" as="h2">
-            Related Movies
+        <Box mt={[0, '35rem']} maxWidth={'xl'} mx="auto">
+          <Text className="section_header" as="h2">
+            Similar Movies You may Like
           </Text>
           <Grid
             container
@@ -75,7 +87,7 @@ export function DetailPage() {
               relatedQuery.data?.data.results
                 ?.slice(0, 12)
                 .map((movie, index) => (
-                  <Grid item lg={2} sm={4} xs={11} p="10px" key={index}>
+                  <Grid item lg={3} xl={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
                         history.push(`/detail/${movie.id}`);
