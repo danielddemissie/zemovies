@@ -1,14 +1,20 @@
-import { PlayCircleOutline, Star, YouTube } from '@mui/icons-material';
+import {
+  Close as CloseIcon,
+  PlayCircleOutline,
+  Star,
+  YouTube,
+} from '@mui/icons-material';
 import React from 'react';
 import { Box, Flex, Img, Text, Button } from '../Blocks';
 import './style.css';
 import { classNames } from 'app/config';
 import { imgUrls } from 'app/config';
-import { Dialog, Grid } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { CastCarousel } from '../Carousels';
 import { ReactComponent as IMDBIcon } from '../../../assets/icons/imdb.svg';
+import { redirectUrls } from 'app/config/url';
 
 export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
@@ -55,7 +61,7 @@ export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
 
 export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const fullScreen = useMediaQuery(theme.breakpoints.down('xs')); //TODO full screen on small screen
   const [videoKey, setVideoKey] = React.useState('');
 
   return (
@@ -212,12 +218,18 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           <Text as="h4" my="1rem">
             IMDB
           </Text>
-          <IMDBIcon
-            style={{
-              width: '50px',
-              height: '50px',
-            }}
-          />
+          <a
+            href={redirectUrls.imdb + detail.imdb_id}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IMDBIcon
+              style={{
+                width: '50px',
+                height: '50px',
+              }}
+            />
+          </a>
         </Box>
         <Dialog
           onClose={() => setOpenModal(false)}
@@ -228,9 +240,32 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
             '& .MuiDialog-paper': {
               background:
                 'linear-gradient(to right top, #051937, #001b35, #001d32, #001e2e, #011f2a)',
+              borderRadius: '10px',
             },
           }}
         >
+          <DialogTitle
+            sx={{
+              margin: '5px 0',
+            }}
+          >
+            <CloseIcon
+              onClick={() => {
+                setOpenModal(false);
+              }}
+              sx={{
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                zIndex: '20',
+                position: 'absolute',
+                right: 5,
+                top: '5px',
+                cursor: 'pointer',
+                color: '#0092ca',
+              }}
+            />
+          </DialogTitle>
           <iframe
             title={detail?.title}
             width={'100%'}

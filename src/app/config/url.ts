@@ -9,4 +9,8 @@ const videoUrls = {
   vimeo: 'https://vimeo.com/',
 };
 
-export { imgUrls, videoUrls };
+const redirectUrls = {
+  imdb: 'https://www.imdb.com/title/',
+};
+
+export { imgUrls, videoUrls, redirectUrls };
