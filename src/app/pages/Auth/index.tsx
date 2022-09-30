@@ -26,7 +26,7 @@ export function Auth() {
         />
       </Helmet>
       <Flex
-        maxWidth="md"
+        maxWidth={['md', 'md', 'md', 'lg']}
         width={['90%', '90%', '100%']}
         alignItems={'center'}
         flexDirection={isSignin ? ['column', 'row'] : ['column', 'row-reverse']}

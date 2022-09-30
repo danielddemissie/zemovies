@@ -50,7 +50,7 @@ export function DetailPage() {
               top={['-20px', '20%', '25%']}
               left={['0px', '5%', '5%', '15%']}
               mx="10px"
-              width={['90%', '50%', '60%', '60%']}
+              width={['90%', '90%', '90%', '80%']}
             >
               <BigCard
                 open={openModal}

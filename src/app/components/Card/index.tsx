@@ -9,7 +9,7 @@ import { Box, Flex, Img, Text, Button } from '../Blocks';
 import './style.css';
 import { classNames } from 'app/config';
 import { imgUrls } from 'app/config';
-import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material';
+import { Dialog, DialogTitle, Grid } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { CastCarousel } from '../Carousels';
@@ -69,7 +69,7 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
       alignItems="flex-start"
       justifyContent="flex-start"
       flexDirection={['row']}
-      gap={'20px'}
+      gap={['30px']}
     >
       <Grid
         width={['100%', '300px', '350px', '350px']}
@@ -96,7 +96,6 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
         color="white.0"
         mx={['auto', 0]}
         width={['100%', '90%']}
-        // width={['90%', '90%']}
         fontSize={['12px', '1rem']}
       >
         <Text as="h2">{detail.title || detail.original_title}</Text>
@@ -104,14 +103,17 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           {detail.tagline}
         </Text>
         <Box>
-          <Text as={'h4'}>Genre</Text>
-          <Flex>
-            {detail.genres.length > 0 &&
+          <Text>Genre</Text>
+          <Flex mt="5px">
+            {detail.genres.length > 0 ? (
               detail.genres?.map(genre => (
                 <Text key={genre.id} mr="10px" color={'white.2'}>
                   {genre.name}
                 </Text>
-              ))}
+              ))
+            ) : (
+              <Text>NO GENRE AVAILABLE!</Text>
+            )}
           </Flex>
         </Box>
         <Flex
@@ -123,17 +125,20 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           <Flex flexDirection={'column'} alignItems={'start'}>
             <Box>
               <Text>Rating</Text>
-              <Star
-                sx={{
-                  color: '#FAAF00',
-                }}
-              />
+              <Box display={'inline-block'} width={['20px', '20', '30px']}>
+                <Star
+                  sx={{
+                    width: '100%',
+                    color: '#FAAF00',
+                  }}
+                />
+              </Box>
             </Box>
-            <Box>
-              <Text fontSize={'1.2rem'} color={'white.2'}>
+            <Box mt="5px">
+              <Text color={'white.2'}>
                 {+detail.vote_average.toFixed(1)}/10
               </Text>
-              <Text fontSize={'1.2rem'} color={'white.2'}>
+              <Text color={'white.2'}>
                 ({(detail.vote_count / 1000).toFixed(1)}K)
               </Text>
             </Box>
@@ -149,7 +154,7 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           my="1rem"
           alignItems={'start'}
           justifyContent="start"
-          gap={['1rem', '7rem']}
+          gap={['1rem', '5rem']}
         >
           <Box>
             {' '}
