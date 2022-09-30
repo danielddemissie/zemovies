@@ -89,3 +89,23 @@ export const useGetCredit = id => {
     });
   });
 };
+
+export const useGetDiscoverMovie = () => {
+  return useQuery('movies', () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/discover/movie`,
+    });
+  });
+};
+
+export const useGetGenres = mediaType => {
+  return useQuery(['genres', mediaType], () => {
+    return Axios({
+      method: 'GET',
+      token: process.env.REACT_APP_API_TOKEN,
+      route: `https://api.themoviedb.org/3/genre/${mediaType}/list`,
+    });
+  });
+};

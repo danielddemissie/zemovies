@@ -1,0 +1,4 @@
+.input_search:focus {
+  outline: none;
+  padding: 0.95rem 0;
+}

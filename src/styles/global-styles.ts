@@ -39,7 +39,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   .section_header {
-    margin: 3rem auto;
+    margin: 3rem 10px;
     color: white;
     font-size: 1.5rem;
   }
