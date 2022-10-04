@@ -28,6 +28,7 @@ export function SeriesPage() {
   const history = useHistory();
   let movieData: any = [];
   const filterBy = ['Genre', 'Time', 'All'];
+  const scrollRef = React.useRef<Element>(null);
 
   const discoverMoviesQuery = moviesQuery.useGetDiscover('tv');
   const genreQuery = moviesQuery.useGetGenres('tv');
@@ -46,7 +47,13 @@ export function SeriesPage() {
   };
 
   const handleFilter = value => {
+    setQuery('');
     setFilterValue(value);
+    if (scrollRef) {
+      scrollRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
   };
 
   if (query) {
@@ -79,13 +86,13 @@ export function SeriesPage() {
                 size="small"
                 sx={{
                   m: 1,
+                  mt: '0.5rem',
                   minWidth: {
-                    lg: '130px',
+                    lg: '150px',
                     xs: '250px',
                   },
                   backgroundColor: '#053F55',
-                  borderBottomLeftRadius: '10px',
-                  borderTopLeftRadius: '10px',
+                  borderRadius: '10px',
                 }}
               >
                 <InputLabel
@@ -102,11 +109,24 @@ export function SeriesPage() {
                     border: 'none',
                     color: 'white',
                     py: '6px',
-                    '& .MuiList-root-MuiMenu-list': {
-                      backgroundColor: 'red',
-                    },
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        marginTop: '10px ',
+                        marginLeft: '20px',
+                        color: 'white',
+                        backgroundColor: '#053F55',
+                        width: {
+                          lg: '150px',
+                          sm: '250px',
+                          xs: '240px',
+                        },
+                      },
+                    },
+                  }}
+                  label={null}
                   labelId="demo-single-chip-label"
                   id="demo-single-chip"
                   IconComponent={() => (
@@ -149,9 +169,8 @@ export function SeriesPage() {
                 border="none"
                 py={['1rem']}
                 name="query"
-                placeholder="Search Movies..."
+                placeholder="Search Series..."
                 style={{
-                  marginLeft: '5px',
                   paddingLeft: '20px',
                   width: '100%',
                 }}
@@ -172,13 +191,7 @@ export function SeriesPage() {
             rowGap={{
               lg: '1rem',
             }}
-            columns={
-              {
-                // lg: 10,
-                // xs: 12,
-                // sm: 12,
-              }
-            }
+            columns={{}}
             gap={'1rem'}
           >
             {genreQuery.data?.data?.genres?.slice(0, 20).map(_genre => (
@@ -205,17 +218,18 @@ export function SeriesPage() {
         </Box>
       )}
       <Container maxWidth="xl">
-        <Flex alignItems={'center'} justifyContent="space-between">
+        <Box ref={scrollRef}>
           <Text as="h1" className={classNames.SECTION_HEADER} color="white.0">
             Discover Series
           </Text>
-        </Flex>
+        </Box>
+
         <Grid
           container
           direction={'row'}
           alignItems="center"
           rowGap={[0, '1rem']}
-          justifyContent={'center'}
+          justifyContent={'start'}
           color="white.0"
         >
           {movieData.isLoading ? (
@@ -223,8 +237,8 @@ export function SeriesPage() {
           ) : movieData.isError ? (
             <Text>Error occured</Text>
           ) : (
-            movieData.data?.data.results?.slice(0, 12).map((movie, index) => (
-              <Grid item xl={2} lg={3} sm={4} xs={6} p="10px" key={index}>
+            movieData.data?.data.results?.slice(0, 20).map((movie, index) => (
+              <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
                 <Card
                   onClick={() => {
                     history.push(`/detail/tv/${movie.id}`);

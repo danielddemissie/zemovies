@@ -27,6 +27,7 @@ export function MoviesPage() {
   const [query, setQuery] = React.useState('');
   const [filterType, setFilterType] = React.useState('');
   const [filterValue, setFilterValue] = React.useState('');
+  const scrollRef = React.useRef<Element>(null);
   const filterBy = ['Genre', 'Time', 'All'];
   let movieData: any = [];
 
@@ -49,6 +50,11 @@ export function MoviesPage() {
   const handleFilter = value => {
     setQuery('');
     setFilterValue(value);
+    if (scrollRef) {
+      scrollRef?.current?.scrollIntoView({
+        behavior: 'smooth',
+      });
+    }
   };
 
   if (query) {
@@ -65,7 +71,7 @@ export function MoviesPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Formik
-        initialValues={{ searchQuery: '' }}
+        initialValues={{ query: '' }}
         onSubmit={values => handleSearch(values)}
       >
         {({ values }) => (
@@ -79,9 +85,13 @@ export function MoviesPage() {
                 size="small"
                 sx={{
                   m: 1,
+                  mt: {
+                    lg: '0.5rem',
+                    xs: '0.8rem',
+                  },
                   minWidth: {
-                    lg: '130px',
-                    xs: '250px',
+                    lg: '150px',
+                    xs: '290px',
                   },
                   backgroundColor: '#053F55',
                   borderRadius: '10px',
@@ -101,11 +111,24 @@ export function MoviesPage() {
                     border: 'none',
                     color: 'white',
                     py: '6px',
-                    '& .MuiList-root-MuiMenu-list': {
-                      backgroundColor: 'red',
-                    },
                     '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
                   }}
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        marginTop: '10px ',
+                        marginLeft: '20px',
+                        color: 'white',
+                        backgroundColor: '#053F55',
+                        width: {
+                          lg: '150px',
+                          sm: '250px',
+                          xs: '290px',
+                        },
+                      },
+                    },
+                  }}
+                  label={null}
                   labelId="demo-single-chip-label"
                   id="demo-single-chip"
                   IconComponent={() => (
@@ -150,7 +173,6 @@ export function MoviesPage() {
                 name="query"
                 placeholder="Search Movies..."
                 style={{
-                  marginLeft: '5px',
                   paddingLeft: '20px',
                   width: '100%',
                 }}
@@ -166,19 +188,7 @@ export function MoviesPage() {
           <Text color={'white.0'} textAlign="center" as="h3">
             Genres:
           </Text>{' '}
-          <Grid
-            container
-            justifyContent={'center'}
-            rowGap={{
-              lg: '1rem',
-            }}
-            columns={
-              {
-                //
-              }
-            }
-            gap={'1rem'}
-          >
+          <Grid container columns={{}} gap={'1rem'} justifyContent={'center'}>
             {genreQuery.data?.data?.genres?.slice(0, 20).map(_genre => (
               <Grid item lg={2} sm={3} xs={4} md={3}>
                 <Button
@@ -204,17 +214,17 @@ export function MoviesPage() {
       )}
 
       <Container maxWidth="xl">
-        <Flex alignItems={'center'} justifyContent="space-between">
+        <Box ref={scrollRef}>
           <Text as="h1" className={classNames.SECTION_HEADER} color="white.0">
             Discover Movies
           </Text>
-        </Flex>
+        </Box>
         <Grid
           container
           direction={'row'}
           alignItems="center"
           rowGap={[0, '1rem']}
-          justifyContent={'center'}
+          justifyContent={'start'}
           color="white.0"
         >
           {movieData.isLoading ? (
@@ -222,8 +232,8 @@ export function MoviesPage() {
           ) : movieData.isError ? (
             <Text>Error occured</Text>
           ) : (
-            movieData.data?.data.results?.slice(0, 12).map((movie, index) => (
-              <Grid item xl={2} lg={3} sm={4} xs={6} p="10px" key={index}>
+            movieData.data?.data.results?.map((movie, index) => (
+              <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
                 <Card
                   onClick={() => {
                     history.push(`/detail/movie/${movie.id}`);

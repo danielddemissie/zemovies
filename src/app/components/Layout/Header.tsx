@@ -258,7 +258,7 @@ export default () => {
           onClose={toggleDrawer('left', false)}
           onOpen={toggleDrawer('left', true)}
           sx={{
-            '& .css-4t3x6l-MuiPaper-root-MuiDrawer-paper': {
+            '& .MuiPaper-root.MuiDrawer-paper': {
               backgroundColor: '#000',
             },
           }}

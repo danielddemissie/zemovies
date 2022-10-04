@@ -41,7 +41,7 @@ const StyledInput = styled(Field)<InputProps>`
 `;
 
 export const Input = (props: InputProps) => {
-  const { borderRadius, InputIcon, ...rest } = props;
+  const { InputIcon, ...rest } = props;
   return (
     <Box
       sx={{
