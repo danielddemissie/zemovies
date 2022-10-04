@@ -20,19 +20,23 @@ import {
   SelectChangeEvent,
   FormControl,
 } from '@mui/material';
+import Pagination from 'app/components/Pagination';
 
 export function SeriesPage() {
   const [query, setQuery] = React.useState('');
   const [filterType, setFilterType] = React.useState('');
   const [filterValue, setFilterValue] = React.useState('');
+  const [page, setPage] = React.useState(1);
+
   const history = useHistory();
   let movieData: any = [];
   const filterBy = ['Genre', 'Time', 'All'];
   const scrollRef = React.useRef<Element>(null);
 
-  const discoverMoviesQuery = moviesQuery.useGetDiscover('tv');
+  const discoverMoviesQuery = query
+    ? moviesQuery.useGetSearchMovie('tv', query, page)
+    : moviesQuery.useGetDiscover('tv', page);
   const genreQuery = moviesQuery.useGetGenres('tv');
-  const searchQuery = moviesQuery.useGetSearchMovie('tv', query);
   const filterQuery = moviesQuery.useGetFilterhMovie('tv', filterValue);
 
   const handleSearch = value => {
@@ -46,6 +50,15 @@ export function SeriesPage() {
     setFilterType(event.target.value);
   };
 
+  const handlePagination = (event, newPageNumber) => {
+    setPage(newPageNumber);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   const handleFilter = value => {
     setQuery('');
     setFilterValue(value);
@@ -56,9 +69,7 @@ export function SeriesPage() {
     }
   };
 
-  if (query) {
-    movieData = searchQuery;
-  } else if (filterValue) {
+  if (filterValue) {
     movieData = filterQuery;
   } else {
     movieData = discoverMoviesQuery;
@@ -89,7 +100,7 @@ export function SeriesPage() {
                   mt: '0.5rem',
                   minWidth: {
                     lg: '150px',
-                    xs: '250px',
+                    xs: '280px',
                   },
                   backgroundColor: '#053F55',
                   borderRadius: '10px',
@@ -121,7 +132,7 @@ export function SeriesPage() {
                         width: {
                           lg: '150px',
                           sm: '250px',
-                          xs: '240px',
+                          xs: '280px',
                         },
                       },
                     },
@@ -236,8 +247,8 @@ export function SeriesPage() {
             <Text>Loading...</Text>
           ) : movieData.isError ? (
             <Text>Error occured</Text>
-          ) : (
-            movieData.data?.data.results?.slice(0, 20).map((movie, index) => (
+          ) : movieData.data?.data?.results?.length >= 1 ? (
+            movieData.data?.data.results?.map((movie, index) => (
               <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
                 <Card
                   onClick={() => {
@@ -249,9 +260,22 @@ export function SeriesPage() {
                 />
               </Grid>
             ))
+          ) : (
+            <Text mx={'auto'}>No results found!.</Text>
           )}
-          <Text textAlign={'left'}>View More</Text>
         </Grid>
+        <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
+          <Pagination
+            onChange={handlePagination}
+            count={
+              movieData?.data?.data?.total_pages > 1000
+                ? 500
+                : movieData?.data?.data?.total_pages
+            }
+            page={page}
+            fontSize={'15px'}
+          />
+        </Flex>
       </Container>
     </>
   );

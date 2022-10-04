@@ -2,29 +2,27 @@
 import { useQuery } from 'react-query';
 import { Axios } from 'app/config';
 
-export const usegGetPopular = () => {
-  return useQuery('trending', () => {
+export const usegGetPopular = (page = 1) => {
+  return useQuery(['popular', page], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
       route: 'https://api.themoviedb.org/3/movie/popular',
       params: {
-        page: 1,
-        size: 10,
+        page,
       },
     });
   });
 };
 
-export const usegGetNowPlaying = () => {
-  return useQuery('popular', () => {
+export const usegGetNowPlaying = (page = 1) => {
+  return useQuery('now-playing', () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
       route: 'https://api.themoviedb.org/3/movie/now_playing',
       params: {
-        page: 1,
-        size: 10,
+        page,
       },
     });
   });
@@ -90,12 +88,15 @@ export const useGetCredit = (mediaType, id) => {
   });
 };
 
-export const useGetDiscover = mediaType => {
-  return useQuery(['discover', mediaType], () => {
+export const useGetDiscover = (mediaType, page = 1) => {
+  return useQuery([`discover/${mediaType}`, page], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
       route: `https://api.themoviedb.org/3/discover/${mediaType}`,
+      params: {
+        page,
+      },
     });
   });
 };
@@ -110,9 +111,9 @@ export const useGetGenres = mediaType => {
   });
 };
 
-export const useGetSearchMovie = (mediaType, query) => {
+export const useGetSearchMovie = (mediaType, query, page = 1) => {
   return useQuery(
-    ['search', query],
+    [`search/${query}`, page],
     () => {
       return Axios({
         method: 'GET',
@@ -120,6 +121,7 @@ export const useGetSearchMovie = (mediaType, query) => {
         route: `https://api.themoviedb.org/3/search/${mediaType}`,
         params: {
           query: query,
+          page: page,
         },
       });
     },

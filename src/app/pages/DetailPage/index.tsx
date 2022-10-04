@@ -20,6 +20,10 @@ export function DetailPage() {
   const movieCredit = moviesQuery.useGetCredit(mediaType, _id);
   const videos = videosQuery.data?.data?.results;
 
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -92,6 +96,11 @@ export function DetailPage() {
                   <Grid item lg={3} xl={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
+                        window.scrollTo({
+                          top: 0,
+                          left: 0,
+                          behavior: 'smooth',
+                        });
                         history.push(`/detail/${mediaType}/${movie.id}`);
                       }}
                       title={movie.title}

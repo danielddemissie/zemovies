@@ -21,6 +21,7 @@ import {
   SelectChangeEvent,
   FormControl,
 } from '@mui/material';
+import Pagination from 'app/components/Pagination';
 
 export function MoviesPage() {
   const history = useHistory();
@@ -28,15 +29,18 @@ export function MoviesPage() {
   const [filterType, setFilterType] = React.useState('');
   const [filterValue, setFilterValue] = React.useState('');
   const scrollRef = React.useRef<Element>(null);
+  const [page, setPage] = React.useState(1);
   const filterBy = ['Genre', 'Time', 'All'];
   let movieData: any = [];
 
-  const discoverMoviesQuery = moviesQuery.useGetDiscover('movie');
+  const discoverMoviesQuery = query
+    ? moviesQuery.useGetSearchMovie('movie', query, page)
+    : moviesQuery.useGetDiscover('movie', page);
   const genreQuery = moviesQuery.useGetGenres('movie');
-  const searchQuery = moviesQuery.useGetSearchMovie('movie', query);
   const filterQuery = moviesQuery.useGetFilterhMovie('movie', filterValue);
 
   const handleSearch = value => {
+    setFilterValue('');
     setQuery(value.query);
   };
 
@@ -56,10 +60,16 @@ export function MoviesPage() {
       });
     }
   };
+  const handlePagination = (event, newPageNumber) => {
+    setPage(newPageNumber);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
 
-  if (query) {
-    movieData = searchQuery;
-  } else if (filterValue) {
+  if (filterValue) {
     movieData = filterQuery;
   } else {
     movieData = discoverMoviesQuery;
@@ -231,7 +241,7 @@ export function MoviesPage() {
             <Text>Loading...</Text>
           ) : movieData.isError ? (
             <Text>Error occured</Text>
-          ) : (
+          ) : movieData.data?.data.results.length >= 1 ? (
             movieData.data?.data.results?.map((movie, index) => (
               <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
                 <Card
@@ -244,9 +254,22 @@ export function MoviesPage() {
                 />
               </Grid>
             ))
+          ) : (
+            <Text mx={'auto'}>No results found!.</Text>
           )}
-          <Text textAlign={'left'}>View More</Text>
         </Grid>
+        <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
+          <Pagination
+            onChange={handlePagination}
+            count={
+              movieData?.data?.data?.total_pages > 500
+                ? 500
+                : movieData?.data?.data?.total_pages
+            }
+            page={page}
+            fontSize={'12px'}
+          />
+        </Flex>
       </Container>
     </>
   );

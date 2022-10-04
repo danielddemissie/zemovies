@@ -1,6 +1,5 @@
-/* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { Box, Grid, Flex, Text, Input } from 'app/components/Blocks';
+import { Grid, Flex, Text, Input } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
@@ -10,23 +9,33 @@ import { Form, Formik } from 'formik';
 import './style.css';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { Container } from '@mui/material';
+import Pagination from 'app/components/Pagination';
 
 export function PopularPage() {
   const [query, setQuery] = React.useState('');
+  const [page, setPage] = React.useState(1);
   const history = useHistory();
   let movieData: any = [];
 
-  const discoverMoviesQuery = moviesQuery.usegGetPopular();
-  const searchQuery = moviesQuery.useGetSearchMovie('movie', query);
+  const paginateQuery = moviesQuery.usegGetPopular(page);
+  const searchQuery = moviesQuery.useGetSearchMovie('movie', query, page);
 
   const handleSearch = value => {
     setQuery(value.query);
+  };
+  const handlePagination = (event, newPageNumber) => {
+    setPage(newPageNumber);
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   if (query) {
     movieData = searchQuery;
   } else {
-    movieData = discoverMoviesQuery;
+    movieData = paginateQuery;
   }
 
   return (
@@ -106,8 +115,19 @@ export function PopularPage() {
               </Grid>
             ))
           )}
-          <Text textAlign={'left'}>View More</Text>
         </Grid>
+        <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
+          <Pagination
+            onChange={handlePagination}
+            count={
+              movieData?.data?.data?.total_pages > 1000
+                ? 500
+                : movieData?.data?.data?.total_pages
+            }
+            page={page}
+            fontSize={'15px'}
+          />
+        </Flex>
       </Container>
     </>
   );
