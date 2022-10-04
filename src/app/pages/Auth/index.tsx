@@ -127,16 +127,18 @@ export function Auth() {
                 {!isSignin && (
                   <Box mb={['1rem']}>
                     <Input
-                      bg={'primary.3'}
+                      bg={'transparent'}
+                      className="input_search"
                       color="white.0"
-                      border="1px solid #053F55"
+                      border="none"
                       borderRadius={[0]}
-                      p={[3]}
-                      placeholder="Email"
-                      name="email"
+                      py={['1rem']}
                       style={{
+                        paddingLeft: '20px',
                         width: '100%',
                       }}
+                      placeholder="Email"
+                      name="email"
                     />
                     <Text variant="error">
                       <ErrorMessage name="email" />
@@ -145,14 +147,16 @@ export function Auth() {
                 )}
                 <Box mb={['1rem']}>
                   <Input
-                    bg={'primary.3'}
-                    color="white.0"
-                    border="1px solid #053F55"
-                    borderRadius={[0]}
-                    p={[3]}
                     placeholder="User name"
                     name="username"
+                    bg={'transparent'}
+                    className="input_search"
+                    color="white.0"
+                    border="none"
+                    borderRadius={[0]}
+                    py={['1rem']}
                     style={{
+                      paddingLeft: '20px',
                       width: '100%',
                     }}
                   />
@@ -162,23 +166,25 @@ export function Auth() {
                 </Box>
                 <Box mb={['1rem']}>
                   <Input
-                    bg={'primary.3'}
-                    color="white.0"
-                    border="1px solid #053F55"
                     borderRadius={[0]}
-                    p={[3]}
+                    bg={'transparent'}
+                    color="white.0"
                     placeholder="Password"
+                    name="password"
+                    className="input_search"
+                    border="none"
+                    py={['1rem']}
                     style={{
+                      paddingLeft: '20px',
                       width: '100%',
                     }}
-                    name="password"
                   />
                   <Text variant="error">
                     <ErrorMessage name="password" />
                   </Text>
                 </Box>
                 <Button
-                  variant="secondary"
+                  variant="primary"
                   fontSize={['1rem']}
                   fontFamily="ubuntu"
                   px={['2rem']}

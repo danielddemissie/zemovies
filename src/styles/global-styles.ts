@@ -44,4 +44,9 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1.5rem;
   }
 
+  .input_search:focus {
+    outline: none;
+  padding: 0.95rem 0;
+  }
+
 `;

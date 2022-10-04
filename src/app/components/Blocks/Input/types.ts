@@ -1,3 +1,4 @@
+import { CSSProp } from 'styled-components';
 import {
   SpaceProps,
   BorderProps,
@@ -24,4 +25,7 @@ export interface InputProps
     BackgroundColorProps,
     BoxShadowProps {
   name?: string;
+  InputIcon?: React.ReactElement<any, any>;
+  onIconClick?: () => void;
+  iconSx?: CSSProp;
 }

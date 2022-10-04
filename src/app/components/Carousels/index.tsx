@@ -12,7 +12,7 @@ const HomeCarousel = () => {
   const history = useHistory();
 
   const handleClick = id => {
-    history.push(`/detail/${id}/`);
+    history.push(`/detail/movie/${id}/`);
   };
 
   const items = trendingQuery.data?.data.results.map((item: any) => (

@@ -50,52 +50,52 @@ export const usegGetTopRated = () => {
   });
 };
 
-export const useGetdetail = id => {
+export const useGetdetail = (mediaType, id) => {
   return useQuery(['movie', id], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/movie/${id}`,
+      route: `https://api.themoviedb.org/3/${mediaType}/${id}`,
     });
   });
 };
 
-export const useGetRelated = id => {
+export const useGetRelated = (mediaType, id) => {
   return useQuery(['similar', id], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/movie/${id}'/similar`,
+      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/similar`,
     });
   });
 };
 
-export const useGetVideo = id => {
+export const useGetVideo = (mediaType, id) => {
   return useQuery(['video', id], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/movie/${id}'/videos`,
+      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/videos`,
     });
   });
 };
 
-export const useGetCredit = id => {
+export const useGetCredit = (mediaType, id) => {
   return useQuery(['credit', id], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/movie/${id}'/credits`,
+      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/credits`,
     });
   });
 };
 
-export const useGetDiscoverMovie = () => {
-  return useQuery('movies', () => {
+export const useGetDiscover = mediaType => {
+  return useQuery(['discover', mediaType], () => {
     return Axios({
       method: 'GET',
       token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/discover/movie`,
+      route: `https://api.themoviedb.org/3/discover/${mediaType}`,
     });
   });
 };
@@ -108,4 +108,38 @@ export const useGetGenres = mediaType => {
       route: `https://api.themoviedb.org/3/genre/${mediaType}/list`,
     });
   });
+};
+
+export const useGetSearchMovie = (mediaType, query) => {
+  return useQuery(
+    ['search', query],
+    () => {
+      return Axios({
+        method: 'GET',
+        token: process.env.REACT_APP_API_TOKEN,
+        route: `https://api.themoviedb.org/3/search/${mediaType}`,
+        params: {
+          query: query,
+        },
+      });
+    },
+    { enabled: Boolean(query) },
+  );
+};
+
+export const useGetFilterhMovie = (mediaType, filter) => {
+  return useQuery(
+    ['filter', filter],
+    () => {
+      return Axios({
+        method: 'GET',
+        token: process.env.REACT_APP_API_TOKEN,
+        route: `https://api.themoviedb.org/3/discover/${mediaType}`,
+        params: {
+          with_genres: filter,
+        },
+      });
+    },
+    { enabled: Boolean(filter) },
+  );
 };

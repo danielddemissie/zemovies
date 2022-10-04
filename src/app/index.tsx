@@ -47,7 +47,7 @@ export function App() {
             <Route exact path="/popular" component={PopularPage} />
             <Route exact path="/movies" component={MoviesPage} />
             <Route exact path="/series" component={SeriesPage} />
-            <Route exact path="/detail/:id" component={DetailPage} />
+            <Route path="/detail/" component={DetailPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </Layout>

@@ -12,7 +12,7 @@ import './style.css';
 import { Container } from '@mui/system';
 
 export function PopularPage() {
-  const dicoverMoviesQuery = moviesQuery.useGetDiscoverMovie();
+  const dicoverMoviesQuery = moviesQuery.usegGetPopular();
   const genreQuery = moviesQuery.useGetGenres('series');
   const history = useHistory();
   const handleSearch = value => {

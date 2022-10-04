@@ -4,18 +4,20 @@ import { Box, Grid, Text } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 import { BigCard, Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { imgUrls } from 'app/config';
 
 export function DetailPage() {
-  const param = useParams<{ id: string }>();
+  const path = useLocation().pathname;
+  const mediaType = path?.split('/')[2];
+  const _id = path?.split('/')[3];
   const history = useHistory();
   const [openModal, setOpenModal] = React.useState(false);
 
-  const detailQuery = moviesQuery.useGetdetail(param?.id);
-  const relatedQuery = moviesQuery.useGetRelated(param?.id);
-  const videosQuery = moviesQuery.useGetVideo(param?.id);
-  const movieCredit = moviesQuery.useGetCredit(param?.id);
+  const detailQuery = moviesQuery.useGetdetail(mediaType, _id);
+  const relatedQuery = moviesQuery.useGetRelated(mediaType, _id);
+  const videosQuery = moviesQuery.useGetVideo(mediaType, _id);
+  const movieCredit = moviesQuery.useGetCredit(mediaType, _id);
   const videos = videosQuery.data?.data?.results;
 
   return (
@@ -90,7 +92,7 @@ export function DetailPage() {
                   <Grid item lg={3} xl={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
-                        history.push(`/detail/${movie.id}`);
+                        history.push(`/detail/${mediaType}/${movie.id}`);
                       }}
                       title={movie.title}
                       imgUrl={imgUrls.mediumImages + movie.poster_path}

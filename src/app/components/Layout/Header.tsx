@@ -77,7 +77,7 @@ export default () => {
     <Box
       sx={{
         width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250,
-        height: '100vh',
+        // height: '90vh',
       }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -113,7 +113,7 @@ export default () => {
           <ListItem sx={{ alignSelf: 'center' }} key={menu} disablePadding>
             <ListItemButton>
               <ListItemIcon>{pagesIcons[menu]}</ListItemIcon>
-              <Link to={menu === 'home' ? '/' : `${menu}`}>
+              <Link to={menu === 'home' ? '/' : `/${menu}`}>
                 <ListItemText
                   style={{
                     textTransform: 'capitalize',
@@ -257,14 +257,13 @@ export default () => {
           open={state.left}
           onClose={toggleDrawer('left', false)}
           onOpen={toggleDrawer('left', true)}
-        >
-          <Box
-            sx={{
+          sx={{
+            '& .css-4t3x6l-MuiPaper-root-MuiDrawer-paper': {
               backgroundColor: '#000',
-            }}
-          >
-            {list('left')}
-          </Box>
+            },
+          }}
+        >
+          <Box>{list('left')}</Box>
         </SwipeableDrawer>
       </AppBar>
       {pathName === '/' && <HomeCarousel />}

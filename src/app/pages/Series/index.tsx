@@ -7,18 +7,57 @@ import { moviesQuery } from 'app/hooks';
 import { classNames, imgUrls } from 'app/config';
 import { useHistory } from 'react-router-dom';
 import { Form, Formik } from 'formik';
-import { Search } from '@mui/icons-material';
+import {
+  FilterAlt as FilterIcon,
+  Search as SearchIcon,
+} from '@mui/icons-material';
 import './style.css';
 import { Container } from '@mui/system';
+import {
+  Select,
+  InputLabel,
+  MenuItem,
+  SelectChangeEvent,
+  FormControl,
+} from '@mui/material';
 
 export function SeriesPage() {
-  const dicoverMoviesQuery = moviesQuery.useGetDiscoverMovie();
-  const genreQuery = moviesQuery.useGetGenres('tv');
+  const [query, setQuery] = React.useState('');
+  const [filterType, setFilterType] = React.useState('');
+  const [filterValue, setFilterValue] = React.useState('');
   const history = useHistory();
+  let movieData: any = [];
+  const filterBy = ['Genre', 'Time', 'All'];
+
+  const discoverMoviesQuery = moviesQuery.useGetDiscover('tv');
+  const genreQuery = moviesQuery.useGetGenres('tv');
+  const searchQuery = moviesQuery.useGetSearchMovie('tv', query);
+  const filterQuery = moviesQuery.useGetFilterhMovie('tv', filterValue);
+
   const handleSearch = value => {
-    console.log('search===>', value);
+    setQuery(value.query);
   };
 
+  const handleFilterType = (event: SelectChangeEvent) => {
+    if (event.target.value === 'All') {
+      setFilterType('');
+    }
+    setFilterType(event.target.value);
+  };
+
+  const handleFilter = value => {
+    setFilterValue(value);
+  };
+
+  if (query) {
+    movieData = searchQuery;
+  } else if (filterValue) {
+    movieData = filterQuery;
+  } else {
+    movieData = discoverMoviesQuery;
+  }
+
+  console.log(filterValue, movieData);
   return (
     <>
       <Helmet>
@@ -26,64 +65,99 @@ export function SeriesPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Formik
-        initialValues={{ searchQuery: '' }}
+        initialValues={{ query: '' }}
         onSubmit={values => handleSearch(values)}
       >
         {({ values }) => (
           <Form>
             <Flex alignItems="center" justifyContent={'center'}>
+              <FormControl
+                size="small"
+                sx={{
+                  m: 1,
+                  minWidth: '130px',
+                  backgroundColor: '#053F55',
+                  borderBottomLeftRadius: '10px',
+                  borderTopLeftRadius: '10px',
+                }}
+              >
+                <InputLabel
+                  id="demo-multiple-chip-label"
+                  sx={{
+                    color: 'white',
+                    mt: '5px',
+                  }}
+                >
+                  FilterBy
+                </InputLabel>
+                <Select
+                  sx={{
+                    border: 'none',
+                    color: 'white',
+                    py: '6px',
+                    '& .MuiList-root-MuiMenu-list': {
+                      backgroundColor: 'red',
+                    },
+                    '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
+                  }}
+                  labelId="demo-single-chip-label"
+                  id="demo-single-chip"
+                  IconComponent={() => (
+                    <FilterIcon
+                      sx={{
+                        marginRight: '10px',
+                        color: '#fff',
+                      }}
+                    />
+                  )}
+                  value={filterType}
+                  onChange={handleFilterType}
+                >
+                  {filterBy.map(name => (
+                    <MenuItem key={name} value={name === 'none' ? '' : name}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <Input
+                InputIcon={
+                  <SearchIcon
+                    onClick={() => {
+                      handleSearch(values);
+                    }}
+                    style={{
+                      color: '#fff',
+                      position: 'relative',
+                      top: 0,
+                      marginRight: '10px',
+                      cursor: 'pointer',
+                      marginLeft: '5px',
+                    }}
+                  />
+                }
                 bg={'transparent'}
                 className="input_search"
                 color="white.0"
                 border="none"
                 py={['1rem']}
-                name="searchQuery"
+                name="query"
                 placeholder="Search Movies..."
                 style={{
-                  borderBottomLeftRadius: '2rem',
-                  borderTopLeftRadius: '2rem',
-                  borderBottomRightRadius: '0',
-                  borderTopRightRadius: '0',
                   marginLeft: '5px',
                   paddingLeft: '20px',
                   width: '100%',
                 }}
               />
-              <Button
-                variant="secondary"
-                fontSize={['1rem']}
-                fontFamily="ubuntu"
-                px={['2rem']}
-                py={['1rem']}
-                type="submit"
-                style={{
-                  borderBottomRightRadius: '2rem',
-                  borderTopRightRadius: '2rem',
-                }}
-              >
-                Search
-                <Search
-                  sx={{
-                    marginLeft: '5px',
-                    mt: '2px',
-                    width: '20px',
-                    height: '20px',
-                  }}
-                />
-              </Button>
             </Flex>
+            <button type="submit" style={{ visibility: 'hidden' }} />
           </Form>
         )}
       </Formik>
-      {genreQuery.isLoading ? (
-        <Text>Loading...</Text>
-      ) : genreQuery.isError ? (
-        <Text>Error Ocuured!</Text>
-      ) : (
-        <Box maxWidth={'lg'} mx="auto">
+      {filterType === 'Genre' && (
+        <Box maxWidth={'md'} mx="auto">
           <Text color={'white.0'} className={classNames.SECTION_HEADER} as="h3">
-            Filter By:
+            Genres:
           </Text>{' '}
           <Grid
             container
@@ -93,23 +167,25 @@ export function SeriesPage() {
             }}
             columns={{
               lg: 10,
+              xs: 12,
+              sm: 12,
             }}
+            gap={'1rem'}
           >
             {genreQuery.data?.data?.genres?.slice(0, 20).map(_genre => (
-              <Grid item lg={1}>
+              <Grid item lg={2} sm={3} xs={6} md={3}>
                 <Button
-                  style={
-                    {
-                      // backgroundImage: `linear-gradient(to right top, #0092ca, #0082b2, #00729c, #006285, #025370, #025674, #015877, #015b7b, #00719a, #0088ba, #009fdb, #00b7fd)`,
-                    }
-                  }
+                  style={{
+                    width: '150px',
+                    fontFamily: 'ubuntu',
+                  }}
                   variant="secondary"
                   color="#fff"
                   borderRadius={'10px'}
                   px="0.5rem"
                   py="0.5rem"
                   onClick={() => {
-                    handleSearch('');
+                    handleFilter(_genre?.id);
                   }}
                 >
                   <Text variant="ellipsis">{_genre?.name}</Text>
@@ -124,7 +200,6 @@ export function SeriesPage() {
           <Text as="h1" className={classNames.SECTION_HEADER} color="white.0">
             Discover Series
           </Text>
-          <Box></Box>
         </Flex>
         <Grid
           container
@@ -132,26 +207,25 @@ export function SeriesPage() {
           alignItems="center"
           rowGap={[0, '1rem']}
           justifyContent={'center'}
+          color="white.0"
         >
-          {dicoverMoviesQuery.isLoading ? (
+          {movieData.isLoading ? (
             <Text>Loading...</Text>
-          ) : dicoverMoviesQuery.isError ? (
+          ) : movieData.isError ? (
             <Text>Error occured</Text>
           ) : (
-            dicoverMoviesQuery.data?.data.results
-              ?.slice(0, 12)
-              .map((movie, index) => (
-                <Grid item xl={2} lg={3} sm={4} xs={6} p="10px" key={index}>
-                  <Card
-                    onClick={() => {
-                      history.push(`/detail/${movie.id}`);
-                    }}
-                    title={movie.title}
-                    imgUrl={imgUrls.mediumImages + movie.poster_path}
-                    rate={movie.vote_average}
-                  />
-                </Grid>
-              ))
+            movieData.data?.data.results?.slice(0, 12).map((movie, index) => (
+              <Grid item xl={2} lg={3} sm={4} xs={6} p="10px" key={index}>
+                <Card
+                  onClick={() => {
+                    history.push(`/detail/tv/${movie.id}`);
+                  }}
+                  title={movie.title}
+                  imgUrl={imgUrls.mediumImages + movie.poster_path}
+                  rate={movie.vote_average}
+                />
+              </Grid>
+            ))
           )}
           <Text textAlign={'left'}>View More</Text>
         </Grid>

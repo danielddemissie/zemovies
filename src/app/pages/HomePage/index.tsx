@@ -51,7 +51,7 @@ export function HomePage() {
                   <Grid item lg={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
-                        history.push(`/detail/${movie.id}`);
+                        history.push(`/detail/movie/${movie.id}`);
                       }}
                       title={movie.title}
                       imgUrl={imgUrls.mediumImages + movie.poster_path}
@@ -89,7 +89,7 @@ export function HomePage() {
                   <Grid item lg={2} sm={4} xs={6} p="10px" key={index}>
                     <Card
                       onClick={() => {
-                        history.push(`/detail/${movie.id}`);
+                        history.push(`/detail/movie/${movie.id}`);
                       }}
                       title={movie.title}
                       imgUrl={imgUrls.mediumImages + movie.poster_path}
@@ -128,7 +128,7 @@ export function HomePage() {
                   <Grid item lg={2} sm={4} p={'10px'} xs={6} key={index}>
                     <Card
                       onClick={() => {
-                        history.push(`/detail/${movie.id}`);
+                        history.push(`/detail/movie/${movie.id}`);
                       }}
                       title={movie.title}
                       imgUrl={imgUrls.smallImages + movie.poster_path}
