@@ -70,12 +70,19 @@ export function SeriesPage() {
       >
         {({ values }) => (
           <Form>
-            <Flex alignItems="center" justifyContent={'center'}>
+            <Flex
+              alignItems="center"
+              flexDirection={['column-reverse', 'row']}
+              justifyContent={'center'}
+            >
               <FormControl
                 size="small"
                 sx={{
                   m: 1,
-                  minWidth: '130px',
+                  minWidth: {
+                    lg: '130px',
+                    xs: '250px',
+                  },
                   backgroundColor: '#053F55',
                   borderBottomLeftRadius: '10px',
                   borderTopLeftRadius: '10px',
@@ -156,7 +163,7 @@ export function SeriesPage() {
       </Formik>
       {filterType === 'Genre' && (
         <Box maxWidth={'md'} mx="auto">
-          <Text color={'white.0'} className={classNames.SECTION_HEADER} as="h3">
+          <Text color={'white.0'} textAlign="center" as="h3">
             Genres:
           </Text>{' '}
           <Grid
@@ -165,15 +172,17 @@ export function SeriesPage() {
             rowGap={{
               lg: '1rem',
             }}
-            columns={{
-              lg: 10,
-              xs: 12,
-              sm: 12,
-            }}
+            columns={
+              {
+                // lg: 10,
+                // xs: 12,
+                // sm: 12,
+              }
+            }
             gap={'1rem'}
           >
             {genreQuery.data?.data?.genres?.slice(0, 20).map(_genre => (
-              <Grid item lg={2} sm={3} xs={6} md={3}>
+              <Grid item lg={2} sm={3} xs={4} md={3}>
                 <Button
                   style={{
                     width: '150px',
