@@ -21,7 +21,7 @@ export function HomePage() {
     if (token) {
       localStorage.setItem('access-token', JSON.stringify(token.access));
       localStorage.setItem('refresh-token', JSON.stringify(token.refresh));
-      cookie.remove('x-auth-token');
+      // cookie.remove('x-auth-token');
     }
   }, []);
 

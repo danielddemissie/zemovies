@@ -18,7 +18,7 @@ export function ProfilePage() {
   return (
     <Container maxWidth={'xl'}>
       <Box width={['300px']} height={['200px']}>
-        {user.imageId ? (
+        {user?.imageId ? (
           <Img
             width={'100%'}
             height={'100%'}
@@ -46,7 +46,7 @@ export function ProfilePage() {
             textAlign="center"
             pt="5px"
           >
-            {user.firstname.charAt(0)}
+            {user?.firstname.charAt(0)}
           </Text>
         )}
       </Box>
@@ -56,14 +56,14 @@ export function ProfilePage() {
           style={{ textTransform: 'capitalize' }}
           className={classNames.SECTION_HEADER}
         >
-          {user.firstname}
+          {user?.firstname}
         </Text>
         <Text
           color="white.0"
           style={{ textTransform: 'capitalize' }}
           className={classNames.SECTION_HEADER}
         >
-          {user.lastname}
+          {user?.lastname}
         </Text>
       </Box>
     </Container>
