@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Flex, Text, Box } from '../Blocks';
+import { Link, useHistory } from 'react-router-dom';
+import { Flex, Text, Box, Img } from '../Blocks';
 import { ReactComponent as Logo } from '../../../assets/images/video.svg';
 import {
   AppBar,
@@ -20,8 +20,18 @@ import TheatersIcon from '@mui/icons-material/Theaters';
 import HomeIcon from '@mui/icons-material/Home';
 import { HomeCarousel } from '../Carousels';
 import { useLocation } from 'react-router-dom';
+import { userQuery } from 'app/hooks';
+import { VerifiedUser } from '@mui/icons-material';
 
 export default () => {
+  const accessToken = localStorage.getItem('access-token');
+  let user;
+  if (accessToken) {
+    const token = JSON.parse(accessToken).token;
+    const userProfile = userQuery.useGetUserProfile(token);
+    user = userProfile.data?.data;
+  }
+  const history = useHistory();
   const pathName = useLocation().pathname;
   const pages = ['home', 'movies', 'popular', 'series'];
   const pagesIcons = {
@@ -143,14 +153,15 @@ export default () => {
         <Flex
           flexDirection={['row']}
           alignContent={['center']}
-          px={['10px', '20px', 0]}
-          justifyContent={['space-between', 'space-around', 'space-around']}
+          px={['5px', '20px', 0]}
+          mx={[0, '10px']}
+          justifyContent={['space-between', 'space-around', 'space-between']}
           flexWrap="wrap"
         >
           <Box
             sx={{
               display: {
-                xs: !localStorage.getItem('token') ? 'none' : 'flex',
+                xs: 'none',
                 sm: 'flex',
                 md: 'flex',
               },
@@ -215,7 +226,55 @@ export default () => {
             />
           </Box>
 
-          {!localStorage.getItem('token') && (
+          {user ? (
+            <Box
+              sx={{
+                display: { xs: 'flex', md: 'flex' },
+                alignItems: 'center',
+                gap: '5px',
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                history.push('/user/' + user.id);
+              }}
+            >
+              {user.imageId ? (
+                <Box px="1rem" py="0.2rem" borderRadius={'10px'}>
+                  <Img
+                    width={'40px'}
+                    height={'40px'}
+                    style={{
+                      borderRadius: '50%',
+                      marginRight: '5px',
+                    }}
+                    src={user.imageId}
+                    alt={'image for user profiel'}
+                  />
+                  <VerifiedUser />
+                </Box>
+              ) : (
+                <Text
+                  hover={{
+                    background: '#053F55',
+                  }}
+                  style={{
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    background: '#053F55',
+                    textTransform: 'uppercase',
+                  }}
+                  fontSize={['1.2rem']}
+                  textAlign="center"
+                  pt="5px"
+                >
+                  {user.firstname.charAt(0)}
+                </Text>
+              )}
+            </Box>
+          ) : (
             <Box
               sx={{
                 display: { xs: 'flex', md: 'flex' },

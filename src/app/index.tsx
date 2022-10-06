@@ -23,6 +23,7 @@ import { SeriesPage } from './pages/Series/Loadable';
 
 import { useTranslation } from 'react-i18next';
 import Layout from './components/Layout';
+import { ProfilePage } from './pages/Profile/Loadable';
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ export function App() {
             <Route exact path="/popular" component={PopularPage} />
             <Route exact path="/movies" component={MoviesPage} />
             <Route exact path="/series" component={SeriesPage} />
+            <Route exact path={'/user/:id'} component={ProfilePage} />
             <Route path="/detail/" component={DetailPage} />
             <Route component={NotFoundPage} />
           </Switch>

@@ -5,7 +5,7 @@ import { Grid, Text } from 'app/components/Blocks';
 import { moviesQuery } from 'app/hooks';
 import { imgUrls } from 'app/config/';
 import { useHistory } from 'react-router-dom';
-
+import Cookies from 'universal-cookie';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './style.css';
 import { Container } from '@mui/material';
@@ -14,6 +14,16 @@ export function HomePage() {
   const nowPlaying = moviesQuery.usegGetNowPlaying();
   const upcomingQuery = moviesQuery.usegGetUpcoming();
   const topRatedQuery = moviesQuery.usegGetTopRated();
+
+  React.useEffect(() => {
+    const cookie = new Cookies(document.cookie);
+    const token = cookie.get('x-auth-token');
+    if (token) {
+      localStorage.setItem('access-token', JSON.stringify(token.access));
+      localStorage.setItem('refresh-token', JSON.stringify(token.refresh));
+      cookie.remove('x-auth-token');
+    }
+  }, []);
 
   const history = useHistory();
 

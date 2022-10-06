@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useQuery } from 'react-query';
 import { Axios } from 'app/config';
+import { tmdbApiToken, tmdbUrl } from 'app/config/env';
 
 export const usegGetPopular = (page = 1) => {
   return useQuery(['popular', page], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: 'https://api.themoviedb.org/3/movie/popular',
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/movie/popular`,
       params: {
         page,
       },
@@ -16,11 +17,11 @@ export const usegGetPopular = (page = 1) => {
 };
 
 export const usegGetNowPlaying = (page = 1) => {
-  return useQuery('now-playing', () => {
+  return useQuery('now-playin`', () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: 'https://api.themoviedb.org/3/movie/now_playing',
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/movie/now_playing`,
       params: {
         page,
       },
@@ -32,8 +33,8 @@ export const usegGetUpcoming = () => {
   return useQuery('upcoming', () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: 'https://api.themoviedb.org/3/movie/upcoming',
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/movie/upcoming`,
     });
   });
 };
@@ -42,8 +43,8 @@ export const usegGetTopRated = () => {
   return useQuery('toprated', () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: 'https://api.themoviedb.org/3/movie/top_rated',
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/movie/top_rated`,
     });
   });
 };
@@ -52,8 +53,8 @@ export const useGetdetail = (mediaType, id) => {
   return useQuery(['movie', id], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/${mediaType}/${id}`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/${mediaType}/${id}`,
     });
   });
 };
@@ -62,8 +63,8 @@ export const useGetRelated = (mediaType, id) => {
   return useQuery(['similar', id], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/similar`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/${mediaType}/${id}'/similar`,
     });
   });
 };
@@ -72,8 +73,8 @@ export const useGetVideo = (mediaType, id) => {
   return useQuery(['video', id], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/videos`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/${mediaType}/${id}'/videos`,
     });
   });
 };
@@ -82,8 +83,8 @@ export const useGetCredit = (mediaType, id) => {
   return useQuery(['credit', id], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/${mediaType}/${id}'/credits`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/${mediaType}/${id}'/credits`,
     });
   });
 };
@@ -92,8 +93,8 @@ export const useGetDiscover = (mediaType, page = 1) => {
   return useQuery([`discover/${mediaType}`, page], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/discover/${mediaType}`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/discover/${mediaType}`,
       params: {
         page,
       },
@@ -105,8 +106,8 @@ export const useGetGenres = mediaType => {
   return useQuery(['genres', mediaType], () => {
     return Axios({
       method: 'GET',
-      token: process.env.REACT_APP_API_TOKEN,
-      route: `https://api.themoviedb.org/3/genre/${mediaType}/list`,
+      token: tmdbApiToken,
+      route: `${tmdbUrl}/genre/${mediaType}/list`,
     });
   });
 };
@@ -117,8 +118,8 @@ export const useGetSearchMovie = (mediaType, query, page = 1) => {
     () => {
       return Axios({
         method: 'GET',
-        token: process.env.REACT_APP_API_TOKEN,
-        route: `https://api.themoviedb.org/3/search/${mediaType}`,
+        token: tmdbApiToken,
+        route: `${tmdbUrl}/search/${mediaType}`,
         params: {
           query: query,
           page: page,
@@ -135,8 +136,8 @@ export const useGetFilterhMovie = (mediaType, filter) => {
     () => {
       return Axios({
         method: 'GET',
-        token: process.env.REACT_APP_API_TOKEN,
-        route: `https://api.themoviedb.org/3/discover/${mediaType}`,
+        token: tmdbApiToken,
+        route: `${tmdbUrl}/discover/${mediaType}`,
         params: {
           with_genres: filter,
         },

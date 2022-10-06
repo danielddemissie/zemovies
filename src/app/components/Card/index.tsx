@@ -14,7 +14,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { CastCarousel } from '../Carousels';
 import { ReactComponent as IMDBIcon } from '../../../assets/icons/imdb.svg';
-import { redirectUrls } from 'app/config/url';
+import { imdbUrl } from 'app/config/env';
 
 export const Card = ({ title, imgUrl, rate, onClick = () => {} }) => {
   return (
@@ -223,11 +223,7 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           <Text as="h4" my="1rem">
             IMDB
           </Text>
-          <a
-            href={redirectUrls.imdb + detail.imdb_id}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={imdbUrl + detail.imdb_id} target="_blank" rel="noreferrer">
             <IMDBIcon
               style={{
                 width: '50px',

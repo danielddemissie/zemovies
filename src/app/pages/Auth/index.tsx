@@ -9,6 +9,7 @@ import { ReactComponent as GoogleIcon } from '../../../assets/images/googleIcon.
 import { ReactComponent as FacebookIcon } from '../../../assets/images/facebookIcon.svg';
 import { Divider, Chip } from '@mui/material';
 import './style.css';
+import { backendUrl } from 'app/config/env';
 
 export function Auth() {
   const [isSignin, setIsSignin] = React.useState(true);
@@ -65,6 +66,9 @@ export function Auth() {
                 style={{
                   cursor: 'pointer',
                   color: 'white',
+                }}
+                onClick={() => {
+                  window.location.replace(backendUrl + '/oauth/google');
                 }}
               >
                 <GoogleIcon
@@ -183,6 +187,10 @@ export function Auth() {
                     <ErrorMessage name="password" />
                   </Text>
                 </Box>
+                {/* {mutation.isError ? (
+                  <Text variant="error">An error occurred:</Text>
+                ) : null} */}
+
                 <Button
                   variant="primary"
                   fontSize={['1rem']}

@@ -1,12 +1,13 @@
 import { useQuery } from 'react-query';
 import { Axios } from 'app/config';
+import { backendUrl } from 'app/config/env';
 
-export const useGetUsers = () => {
-  return useQuery('users', () => {
+export const useGetUserProfile = token => {
+  return useQuery('user-profile', () => {
     return Axios({
       method: 'GET',
-      route: '/users',
-      token: 'eyu',
+      route: `${backendUrl}/users/profile`,
+      token,
     });
   });
 };
