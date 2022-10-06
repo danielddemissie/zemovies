@@ -18,6 +18,7 @@ export function HomePage() {
   React.useEffect(() => {
     const cookie = new Cookies(document.cookie);
     const token = cookie.get('x-auth-token');
+    console.log(token);
     if (token) {
       localStorage.setItem('access-token', JSON.stringify(token.access));
       localStorage.setItem('refresh-token', JSON.stringify(token.refresh));
