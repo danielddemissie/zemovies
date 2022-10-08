@@ -146,7 +146,9 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           <Box>
             <Text>Release Date</Text>
             <Text display={'block'} mt="5px" color={'white.2'}>
-              {new Date(detail.release_date).toDateString()}
+              {new Date(
+                detail.release_date || detail.first_air_date,
+              ).toDateString()}
             </Text>
           </Box>
         </Flex>
@@ -159,13 +161,17 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           <Box>
             {' '}
             <Text display="block">Duration</Text>
-            <Text color={'white.2'}>
-              {' ' +
-                (detail.runtime / 60).toString().split('.')[0] +
-                'Hr ' +
-                (detail.runtime % 60)}
-              {'Min'}
-            </Text>
+            {detail.runtime ? (
+              <Text color={'white.2'}>
+                {' ' +
+                  (detail.runtime / 60).toString().split('.')[0] +
+                  'Hr ' +
+                  (detail.runtime % 60)}
+                {'Min'}
+              </Text>
+            ) : (
+              <Text>NOT KNOWN!</Text>
+            )}
           </Box>
           <Box alignSelf={'start'}>
             <Text display={'block'}>Language</Text>

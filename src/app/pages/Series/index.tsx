@@ -75,7 +75,6 @@ export function SeriesPage() {
     movieData = discoverMoviesQuery;
   }
 
-  console.log(filterValue, movieData);
   return (
     <>
       <Helmet>

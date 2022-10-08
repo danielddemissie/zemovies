@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { Grid, Text } from 'app/components/Blocks';
-import { moviesQuery } from 'app/hooks';
+import { moviesQuery, userQuery } from 'app/hooks';
 import { imgUrls } from 'app/config/';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'universal-cookie';
@@ -14,15 +14,20 @@ export function HomePage() {
   const nowPlaying = moviesQuery.usegGetNowPlaying();
   const upcomingQuery = moviesQuery.usegGetUpcoming();
   const topRatedQuery = moviesQuery.usegGetTopRated();
+  const [token, setToken] = React.useState('');
+  userQuery.useGetUserProfile(token);
 
   React.useEffect(() => {
     const cookie = new Cookies(document.cookie);
     const token = cookie.get('x-auth-token');
-    console.log(token);
     if (token) {
       localStorage.setItem('access-token', JSON.stringify(token.access));
       localStorage.setItem('refresh-token', JSON.stringify(token.refresh));
-      // cookie.remove('x-auth-token');
+      cookie.remove('x-auth-token');
+    }
+    const accessToken = localStorage.getItem('access-token');
+    if (accessToken) {
+      setToken(JSON.parse(accessToken).token);
     }
   }, []);
 
