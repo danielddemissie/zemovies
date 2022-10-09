@@ -4,11 +4,16 @@ import { Card } from 'app/components/Card';
 import { Grid, Text } from 'app/components/Blocks';
 import { moviesQuery, userQuery } from 'app/hooks';
 import { imgUrls } from 'app/config/';
-import { useHistory } from 'react-router-dom';
-import Cookies from 'universal-cookie';
+import { useHistory, useLocation } from 'react-router-dom';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './style.css';
 import { Container } from '@mui/material';
+
+function useQuery() {
+  const { search } = useLocation();
+
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
 
 export function HomePage() {
   const nowPlaying = moviesQuery.usegGetNowPlaying();
@@ -17,19 +22,21 @@ export function HomePage() {
   const [token, setToken] = React.useState('');
   userQuery.useGetUserProfile(token);
 
+  let query = useQuery();
+
   React.useEffect(() => {
-    const cookie = new Cookies(document.cookie);
-    const token = cookie.get('x-auth-token');
-    if (token) {
-      localStorage.setItem('access-token', JSON.stringify(token.access));
-      localStorage.setItem('refresh-token', JSON.stringify(token.refresh));
-      cookie.remove('x-auth-token');
+    const token: any = query.get('token');
+    const tokenObj = JSON.parse(token);
+    if (tokenObj) {
+      localStorage.setItem('access-token', JSON.stringify(tokenObj?.access));
+      localStorage.setItem('refresh-token', JSON.stringify(tokenObj?.refresh));
     }
     const accessToken = localStorage.getItem('access-token');
     if (accessToken) {
+      query.delete('token'); //todo delete the query after getting the token
       setToken(JSON.parse(accessToken).token);
     }
-  }, []);
+  }, [query]);
 
   const history = useHistory();
 
