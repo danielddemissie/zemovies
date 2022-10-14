@@ -2,41 +2,17 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { Grid, Text } from 'app/components/Blocks';
-import { moviesQuery, userQuery } from 'app/hooks';
+import { moviesQuery } from 'app/hooks';
 import { imgUrls } from 'app/config/';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './style.css';
 import { Container } from '@mui/material';
-
-function useQuery() {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-}
 
 export function HomePage() {
   const nowPlaying = moviesQuery.usegGetNowPlaying();
   const upcomingQuery = moviesQuery.usegGetUpcoming();
   const topRatedQuery = moviesQuery.usegGetTopRated();
-  const [token, setToken] = React.useState('');
-  userQuery.useGetUserProfile(token);
-
-  let query = useQuery();
-
-  React.useEffect(() => {
-    const token: any = query.get('token');
-    const tokenObj = JSON.parse(token);
-    if (tokenObj) {
-      localStorage.setItem('access-token', JSON.stringify(tokenObj?.access));
-      localStorage.setItem('refresh-token', JSON.stringify(tokenObj?.refresh));
-    }
-    const accessToken = localStorage.getItem('access-token');
-    if (accessToken) {
-      query.delete('token'); //todo delete the query after getting the token
-      setToken(JSON.parse(accessToken).token);
-    }
-  }, [query]);
 
   const history = useHistory();
 

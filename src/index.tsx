@@ -13,6 +13,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { theme } from 'styles/theme';
 import { ThemeProvider } from 'styled-components';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 // Use consistent styling
 
@@ -38,7 +39,9 @@ ReactDOM.render(
     <HelmetProvider>
       <React.StrictMode>
         <ThemeProvider theme={theme}>
-          <App />
+          <GoogleOAuthProvider clientId="33118515474-hu6o5of4fh8f9kptl4jca6nm26vrjav0.apps.googleusercontent.com">
+            <App />
+          </GoogleOAuthProvider>
         </ThemeProvider>
       </React.StrictMode>
     </HelmetProvider>

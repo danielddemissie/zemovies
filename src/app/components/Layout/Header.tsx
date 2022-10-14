@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Flex, Text, Box, Img } from '../Blocks';
 import { ReactComponent as Logo } from '../../../assets/images/video.svg';
 import {
@@ -23,31 +23,39 @@ import { useLocation } from 'react-router-dom';
 import { userQuery } from 'app/hooks';
 import { ArrowBackIosNew, ExpandMore } from '@mui/icons-material';
 import { QueryCache } from 'react-query';
+import { googleLogout } from '@react-oauth/google';
+import { useGoogleOneTapLogin } from '@react-oauth/google';
+import { useMutation } from 'react-query';
 
 export interface IAcnher {
   direction: 'bottom' | 'left' | 'right' | 'top' | undefined;
   open: boolean;
 }
+
 export default () => {
-  const [token, setToken] = React.useState('');
   const qCache = new QueryCache();
   const [ancher, setAncher] = React.useState<IAcnher>({
     direction: undefined,
     open: false,
   });
-  const userProfile = userQuery.useGetUserProfile(token);
-  const user = userProfile.data?.data;
+  const userMutation = useMutation(userQuery.useOauth);
+  let user;
+  useGoogleOneTapLogin({
+    onSuccess: credentialResponse => {
+      userMutation.mutate(credentialResponse);
+    },
+    onError: () => {
+      console.log('Login Failed');
+    },
+  });
 
-  React.useEffect(() => {
-    const accessToken = localStorage.getItem('access-token');
-    if (accessToken) {
-      setToken(JSON.parse(accessToken).token);
-    }
-  }, []);
-
-  const history = useHistory();
+  if (userMutation.isSuccess) {
+    const token: any = userMutation.data?.data?.user.token;
+    user = userMutation.data?.data?.user;
+    localStorage.setItem('access-token', JSON.stringify(token?.access));
+    localStorage.setItem('refresh-token', JSON.stringify(token?.refresh));
+  }
   const pathName = useLocation().pathname;
-  // const rightMenues = ['logout'];
   const pages = ['home', 'movies', 'popular', 'series'];
   const pagesIcons = {
     home: (
@@ -192,7 +200,7 @@ export default () => {
                 localStorage.clear();
                 qCache.clear();
                 console.log('move');
-                history.push('/login');
+                googleLogout();
               }}
             >
               Logout

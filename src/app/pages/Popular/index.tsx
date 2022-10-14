@@ -101,12 +101,12 @@ export function PopularPage() {
             <Text>Loading...</Text>
           ) : movieData.isError ? (
             <Text>Error occured</Text>
-          ) : (
+          ) : movieData.data?.data?.results?.length >= 1 ? (
             movieData.data?.data.results?.map((movie, index) => (
               <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
                 <Card
                   onClick={() => {
-                    history.push(`/detail/movie/${movie.id}`);
+                    history.push(`/detail/tv/${movie.id}`);
                   }}
                   title={movie.title}
                   imgUrl={imgUrls.mediumImages + movie.poster_path}
@@ -114,6 +114,8 @@ export function PopularPage() {
                 />
               </Grid>
             ))
+          ) : (
+            <Text mx={'auto'}>No results found!.</Text>
           )}
         </Grid>
         <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">

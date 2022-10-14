@@ -17,3 +17,13 @@ export const useGetUserProfile = token => {
     },
   );
 };
+
+export const useOauth = credientialRef => {
+  return Axios({
+    method: 'POST',
+    route: `${backendUrl}/oauth/google`,
+    data: {
+      credientialRef,
+    },
+  });
+};

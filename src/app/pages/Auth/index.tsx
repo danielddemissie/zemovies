@@ -5,18 +5,28 @@ import { Input, Box, Flex, Button, Text } from 'app/components/Blocks';
 import { schemas } from '../../config';
 import { Helmet } from 'react-helmet-async';
 import { useHistory } from 'react-router-dom';
-import { ReactComponent as GoogleIcon } from '../../../assets/images/googleIcon.svg';
 import { ReactComponent as FacebookIcon } from '../../../assets/images/facebookIcon.svg';
 import { Divider, Chip } from '@mui/material';
 import './style.css';
-import { backendUrl } from 'app/config/env';
+import { GoogleLogin } from '@react-oauth/google';
+import { userQuery } from 'app/hooks';
+import { QueryCache, useMutation } from 'react-query';
 
 export function Auth() {
   const [isSignin, setIsSignin] = React.useState(true);
+  const qCache = new QueryCache();
   const history = useHistory();
   const handleSubmit = values => {
     history.push('/');
   };
+
+  const userMutation = useMutation(userQuery.useOauth);
+
+  if (userMutation.isSuccess) {
+    const token: any = userMutation.data?.data?.user.token;
+    localStorage.setItem('access-token', JSON.stringify(token?.access));
+    localStorage.setItem('refresh-token', JSON.stringify(token?.refresh));
+  }
   return (
     <>
       <Helmet>
@@ -61,25 +71,16 @@ export function Auth() {
                 padding: '0.5rem 1rem',
               }}
             >
-              <Text
-                fontSize={['12px', '15px']}
-                style={{
-                  cursor: 'pointer',
-                  color: 'white',
+              <GoogleLogin
+                onSuccess={credentialResponse => {
+                  userMutation.mutate(credentialResponse);
+                  qCache.find('user-profile')?.invalidate();
+                  history.push('/');
                 }}
-                onClick={() => {
-                  window.location.replace(backendUrl + '/oauth/google');
+                onError={() => {
+                  console.log('Login Failed');
                 }}
-              >
-                <GoogleIcon
-                  style={{
-                    width: '18px',
-                    marginBottom: '2px',
-                    marginRight: '5px',
-                  }}
-                />
-                Continue with Google
-              </Text>
+              />
             </Box>
             <Box
               sx={{
@@ -187,9 +188,9 @@ export function Auth() {
                     <ErrorMessage name="password" />
                   </Text>
                 </Box>
-                {/* {mutation.isError ? (
+                {userMutation.isError ? (
                   <Text variant="error">An error occurred:</Text>
-                ) : null} */}
+                ) : null}
 
                 <Button
                   variant="primary"
