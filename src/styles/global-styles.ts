@@ -10,12 +10,12 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'ubuntu','Helvetica Neue', Helvetica, Arial, sans-serif;
     background: linear-gradient(to right top, #051937, #001b35, #001d32, #001e2e, #011f2a);
-
   }
 
   #root {
     min-height: 100%;
     min-width: 100%;
+    background: linear-gradient(to right top, #051937, #001b35, #001d32, #001e2e, #011f2a);
   }
 
   p,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Flex, Text, Input } from 'app/components/Blocks';
+import { Grid, Flex, Text, Input, Box } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import './style.css';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { Container } from '@mui/material';
+import { Container, CircularProgress } from '@mui/material';
 import Pagination from 'app/components/Pagination';
 
 export function PopularPage() {
@@ -98,9 +98,14 @@ export function PopularPage() {
           color="white.0"
         >
           {movieData.isLoading ? (
-            <Text>Loading...</Text>
+            <Box textAlign={'center'}>
+              <CircularProgress />
+              <Text color="white.0" display={'block'}>
+                Loading...
+              </Text>
+            </Box>
           ) : movieData.isError ? (
-            <Text>Error occured</Text>
+            <Text color="white.0">Error occured</Text>
           ) : movieData.data?.data?.results?.length >= 1 ? (
             movieData.data?.data.results?.map((movie, index) => (
               <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
@@ -118,18 +123,21 @@ export function PopularPage() {
             <Text mx={'auto'}>No results found!.</Text>
           )}
         </Grid>
-        <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
-          <Pagination
-            onChange={handlePagination}
-            count={
-              movieData?.data?.data?.total_pages > 1000
-                ? 500
-                : movieData?.data?.data?.total_pages
-            }
-            page={page}
-            fontSize={'15px'}
-          />
-        </Flex>
+
+        {movieData.data && (
+          <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
+            <Pagination
+              onChange={handlePagination}
+              count={
+                movieData?.data?.data?.total_pages > 1000
+                  ? 500
+                  : movieData?.data?.data?.total_pages
+              }
+              page={page}
+              fontSize={'15px'}
+            />
+          </Flex>
+        )}
       </Container>
     </>
   );

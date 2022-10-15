@@ -19,7 +19,7 @@ const HomeCarousel = () => {
     <Box
       key={item?.id}
       className="main__nav"
-      height={['100vh', '100vh']}
+      height={['100vh', '90vh']}
       style={{
         cursor: 'pointer',
         backgroundImage: `url(${imgUrls.bigImages}/${item?.backdrop_path})`,
@@ -28,9 +28,9 @@ const HomeCarousel = () => {
     >
       <div className="nav">
         <h3>{item?.title || item?.name}</h3>
-        <h5 style={{ color: '#abb7c4' }}>
+        {/* <h5 style={{ color: '#abb7c4' }}>
           {item?.media_type === 'tv' ? 'Tv Series' : 'Movie'}
-        </h5>
+        </h5> */}
 
         <p>{item?.overview}</p>
         <div className="back__btn">

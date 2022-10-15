@@ -6,6 +6,7 @@ import { BigCard, Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
 import { useHistory, useLocation } from 'react-router-dom';
 import { imgUrls } from 'app/config';
+import { CircularProgress } from '@mui/material';
 
 export function DetailPage() {
   const path = useLocation().pathname;
@@ -31,12 +32,15 @@ export function DetailPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
 
-      <Box>
-        {detailQuery.isLoading ? (
-          <Text>Loading</Text>
-        ) : detailQuery.isError ? (
-          <Text>Error occured!</Text>
-        ) : (
+      {detailQuery.isLoading ? (
+        <Box textAlign={'center'} mt={['200px']}>
+          <CircularProgress />
+          <Text color="white.0" display={'block'}>
+            Loading...
+          </Text>
+        </Box>
+      ) : (
+        <Box>
           <Box>
             <Box
               className="main__nav"
@@ -53,7 +57,7 @@ export function DetailPage() {
             />
             <Box
               position={['relative', 'absolute']}
-              top={['-20px', '20%', '25%']}
+              top={['50%', '20%', '30%']}
               left={['0px', '5%', '5%', '15%']}
               mx="10px"
               width={['90%', '90%', '90%', '80%']}
@@ -67,53 +71,60 @@ export function DetailPage() {
               />
             </Box>
           </Box>
-        )}
-      </Box>
-      <section
-        style={{
-          margin: '0 10px',
-        }}
-      >
-        <Box mt={[0, '35rem']} maxWidth={'xl'} mx="auto">
-          <Text className="section_header" as="h2">
-            Similar Movies You may Like
-          </Text>
-          <Grid
-            container
-            direction={'row'}
-            alignItems="center"
-            rowGap={'1rem'}
-            justifyContent={'center'}
+          <section
+            style={{
+              margin: '0 10px',
+            }}
           >
-            {relatedQuery.isLoading ? (
-              <Text>Loading...</Text>
-            ) : relatedQuery.isError ? (
-              <Text>Error occured</Text>
-            ) : (
-              relatedQuery.data?.data.results
-                ?.slice(0, 12)
-                .map((movie, index) => (
-                  <Grid item lg={3} xl={2} sm={4} xs={6} p="10px" key={index}>
-                    <Card
-                      onClick={() => {
-                        window.scrollTo({
-                          top: 0,
-                          left: 0,
-                          behavior: 'smooth',
-                        });
-                        history.push(`/detail/${mediaType}/${movie.id}`);
-                      }}
-                      title={movie.title}
-                      imgUrl={imgUrls.mediumImages + movie.poster_path}
-                      rate={movie.vote_average}
-                    />
-                  </Grid>
-                ))
-            )}
-            <Text textAlign={'left'}>View More</Text>
-          </Grid>
+            <Box mt={[0, '35rem']} maxWidth={'xl'} mx="auto">
+              <Text className="section_header" as="h2">
+                Similar Movies You may Like
+              </Text>
+              <Grid
+                container
+                direction={'row'}
+                alignItems="center"
+                rowGap={'1rem'}
+                justifyContent={'center'}
+              >
+                {relatedQuery.isError ? (
+                  <Text color="white.0" textAlign={'center'}>
+                    Error occured
+                  </Text>
+                ) : (
+                  relatedQuery.data?.data.results
+                    ?.slice(0, 12)
+                    .map((movie, index) => (
+                      <Grid
+                        item
+                        lg={3}
+                        xl={2}
+                        sm={4}
+                        xs={6}
+                        p="10px"
+                        key={index}
+                      >
+                        <Card
+                          onClick={() => {
+                            window.scrollTo({
+                              top: 0,
+                              left: 0,
+                              behavior: 'smooth',
+                            });
+                            history.push(`/detail/${mediaType}/${movie.id}`);
+                          }}
+                          title={movie.title}
+                          imgUrl={imgUrls.mediumImages + movie.poster_path}
+                          rate={movie.vote_average}
+                        />
+                      </Grid>
+                    ))
+                )}
+              </Grid>
+            </Box>
+          </section>
         </Box>
-      </section>
+      )}
     </>
   );
 }

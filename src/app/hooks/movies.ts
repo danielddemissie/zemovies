@@ -17,7 +17,7 @@ export const usegGetPopular = (page = 1) => {
 };
 
 export const usegGetNowPlaying = (page = 1) => {
-  return useQuery('now-playin`', () => {
+  return useQuery('now-playing', () => {
     return Axios({
       method: 'GET',
       token: tmdbApiToken,

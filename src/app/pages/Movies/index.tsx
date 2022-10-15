@@ -18,6 +18,7 @@ import {
   Select,
   InputLabel,
   MenuItem,
+  CircularProgress,
   SelectChangeEvent,
   FormControl,
 } from '@mui/material';
@@ -30,7 +31,7 @@ export function MoviesPage() {
   const [filterValue, setFilterValue] = React.useState('');
   const scrollRef = React.useRef<Element>(null);
   const [page, setPage] = React.useState(1);
-  const filterBy = ['Genre', 'Time', 'All'];
+  const filterBy = ['Genre'];
   let movieData: any = [];
 
   const discoverMoviesQuery = query
@@ -69,11 +70,8 @@ export function MoviesPage() {
     });
   };
 
-  if (filterValue) {
-    movieData = filterQuery;
-  } else {
-    movieData = discoverMoviesQuery;
-  }
+  filterValue ? (movieData = filterQuery) : (movieData = discoverMoviesQuery);
+
   return (
     <>
       <Helmet>
@@ -238,9 +236,14 @@ export function MoviesPage() {
           color="white.0"
         >
           {movieData.isLoading ? (
-            <Text>Loading...</Text>
+            <Box textAlign={'center'}>
+              <CircularProgress />
+              <Text color="white.0" display={'block'}>
+                Loading...
+              </Text>
+            </Box>
           ) : movieData.isError ? (
-            <Text>Error occured</Text>
+            <Text color="white.0">Error occured</Text>
           ) : movieData.data?.data.results.length >= 1 ? (
             movieData.data?.data.results?.map((movie, index) => (
               <Grid item xl={2.3} lg={3} sm={4} xs={6} p="10px" key={index}>
@@ -258,18 +261,20 @@ export function MoviesPage() {
             <Text mx={'auto'}>No results found!.</Text>
           )}
         </Grid>
-        <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
-          <Pagination
-            onChange={handlePagination}
-            count={
-              movieData?.data?.data?.total_pages > 500
-                ? 500
-                : movieData?.data?.data?.total_pages
-            }
-            page={page}
-            fontSize={'12px'}
-          />
-        </Flex>
+        {movieData.data && (
+          <Flex alignItems={'center'} mt={'1rem'} justifyContent="center">
+            <Pagination
+              onChange={handlePagination}
+              count={
+                movieData?.data?.data?.total_pages > 1000
+                  ? 500
+                  : movieData?.data?.data?.total_pages
+              }
+              page={page}
+              fontSize={'15px'}
+            />
+          </Flex>
+        )}
       </Container>
     </>
   );
