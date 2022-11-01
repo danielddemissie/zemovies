@@ -8,7 +8,7 @@ import React from 'react';
 import { Box, Flex, Img, Text, Button } from '../Blocks';
 import './style.css';
 import { classNames } from 'app/config';
-import { imgUrls } from 'app/config';
+import { imgUrls, downloadUrls } from 'app/config';
 import { Dialog, DialogTitle, Grid } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
@@ -188,6 +188,48 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
             {detail.overview}
           </Text>
         </Box>
+        <Text as="h4">Watch now</Text>
+        <Grid
+          container
+          mt={'1rem'}
+          rowGap="1rem"
+          columnGap={'1rem'}
+          columns={{ lg: 12, md: 6, sm: 6, xs: 12 }}
+        >
+          {detail.imdb_id ? (
+            <Grid item>
+              <Button
+                style={{
+                  backgroundImage: `linear-gradient(to right top, #b16791, #b76895, #bd6999, #c3699c, #c96aa0, #c3659a, #be5f95, #b85a8f, #a54e7f, #93416f, #813660, #6f2a51)`,
+                }}
+                color="#fff"
+                borderRadius={'10px'}
+                px="0.5rem"
+                py="0.5rem"
+                onClick={() => {
+                  console.log('Stream');
+                }}
+              >
+                <a
+                  href={`${downloadUrls.dbGdrive}?imdb=${detail.imdb_id}`}
+                  download
+                  style={{
+                    color: '#fff',
+                  }}
+                >
+                  DBGdrive
+                </a>
+                <YouTube
+                  sx={{
+                    ml: '10px',
+                  }}
+                />
+              </Button>
+            </Grid>
+          ) : (
+            <Text>NO STREAM SITE AVAILABLE!</Text>
+          )}
+        </Grid>
         <Text as="h4">Videos</Text>
         <Grid
           container

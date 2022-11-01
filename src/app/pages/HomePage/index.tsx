@@ -24,8 +24,8 @@ export function HomePage() {
   return (
     <>
       <Helmet>
-        <title>HomePage</title>
-        <meta name="description" content="A Boilerplate application homepage" />
+        <title>Zemovies</title>
+        <meta name="description" content="A zemovies application homepage" />
       </Helmet>
 
       <Container maxWidth={'xl'}>

@@ -35,11 +35,11 @@ export function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Helmet
-          titleTemplate="%s - React Boilerplate"
-          defaultTitle="React Boilerplate"
+          titleTemplate="%s - A What To Watch Site"
+          defaultTitle="Ze movies"
           htmlAttributes={{ lang: i18n.language }}
         >
-          <meta name="description" content="A React Boilerplate application" />
+          <meta name="description" content="A what to watch site" />
         </Helmet>
         <Layout>
           <Switch>

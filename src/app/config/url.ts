@@ -9,4 +9,8 @@ const videoUrls = {
   vimeo: 'https://vimeo.com/',
 };
 
-export { imgUrls, videoUrls };
+const downloadUrls = {
+  dbGdrive: 'https://databasegdriveplayer.xyz/player.php',
+};
+
+export { imgUrls, videoUrls, downloadUrls };
