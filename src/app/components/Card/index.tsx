@@ -81,15 +81,19 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
         item
         flexDirection={'column'}
       >
-        <Img
-          style={{
-            position: 'relative',
-            borderRadius: '10px',
-            maxHeight: '500px',
-          }}
-          src={`${imgUrls.mediumImages}${detail.poster_path}`}
-          alt={detail.title || detail.original_title + 'image'}
-        />
+        {detail.poster_path ? (
+          <Img
+            style={{
+              position: 'relative',
+              borderRadius: '10px',
+              maxHeight: '500px',
+            }}
+            src={`${imgUrls.mediumImages}${detail.poster_path}`}
+            alt={detail.title || detail.original_title + 'image'}
+          />
+        ) : (
+          <Text>Image Not Found</Text>
+        )}
         <CastCarousel casts={credit?.cast} />
       </Grid>
       <Box
