@@ -92,7 +92,7 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
             alt={detail.title || detail.original_title + 'image'}
           />
         ) : (
-          <Text>Image Not Found</Text>
+          <Text color="white.0">Image Not Found</Text>
         )}
         <CastCarousel casts={credit?.cast} />
       </Grid>
@@ -200,7 +200,9 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
           columnGap={'1rem'}
           columns={{ lg: 12, md: 6, sm: 6, xs: 12 }}
         >
-          {detail.imdb_id ? (
+          {detail.imdb_id &&
+          new Date() >
+            new Date(detail.release_date || detail.first_air_date) ? (
             <Grid item>
               <Button
                 style={{
@@ -210,9 +212,6 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
                 borderRadius={'10px'}
                 px="0.5rem"
                 py="0.5rem"
-                onClick={() => {
-                  console.log('Stream');
-                }}
               >
                 <a
                   href={`${downloadUrls.dbGdrive}?imdb=${detail.imdb_id}`}
@@ -271,19 +270,21 @@ export const BigCard = ({ detail, videos, open, setOpenModal, credit }) => {
             <Text>NO VIDEOS AVAILABLE!</Text>
           )}
         </Grid>
-        <Box>
-          <Text as="h4" my="1rem">
-            IMDB
-          </Text>
-          <a href={imdbUrl + detail.imdb_id} target="_blank" rel="noreferrer">
-            <IMDBIcon
-              style={{
-                width: '50px',
-                height: '50px',
-              }}
-            />
-          </a>
-        </Box>
+        {detail.imdb_id && (
+          <Box>
+            <Text as="h4" my="1rem">
+              IMDB
+            </Text>
+            <a href={imdbUrl + detail.imdb_id} target="_blank" rel="noreferrer">
+              <IMDBIcon
+                style={{
+                  width: '50px',
+                  height: '50px',
+                }}
+              />
+            </a>
+          </Box>
+        )}
         <Dialog
           onClose={() => setOpenModal(false)}
           open={open}

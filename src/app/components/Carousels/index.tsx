@@ -78,13 +78,27 @@ const CastCarousel = ({ casts }) => {
   };
   const items = casts?.map((item: any) => (
     <Flex flexDirection="column" alignItems={'center'} py="10px" key={item?.id}>
-      <Img
-        width="80px"
-        height="80px"
-        borderRadius={'50%'}
-        src={imgUrls.smallImages + item.profile_path}
-        alt={item.name}
-      />
+      {item.profile_path ? (
+        <Img
+          width="80px"
+          height="80px"
+          borderRadius={'50%'}
+          src={imgUrls.smallImages + item.profile_path}
+          alt={item.name}
+        />
+      ) : (
+        <Box
+          width="80px"
+          borderRadius={'50%'}
+          backgroundColor="white.0"
+          height="80px"
+          textAlign={'center'}
+          pt="20px"
+          fontSize="small"
+        >
+          Image Not Found
+        </Box>
+      )}
       <Text color="white.0" fontSize={'1rem'} py="10px" display={'block'}>
         {item.name}
       </Text>

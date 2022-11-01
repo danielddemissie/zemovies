@@ -37,25 +37,7 @@ export function HomePage() {
           <Text className="section_header" as="h2">
             Top Rated Movies
           </Text>
-          <Text
-            textAlign={'left'}
-            style={{
-              display: topRatedQuery.isSuccess ? 'block' : 'none',
-              float: 'right',
-              marginRight: '30px',
-              color: 'white',
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              setViewNumber(prev => {
-                return viewNumber.STR === 12
-                  ? { ...prev, STR: 20 }
-                  : { ...prev, STR: 12 };
-              });
-            }}
-          >
-            {viewNumber.STR === 12 ? 'View More' : 'View Less'} &#187;
-          </Text>
+
           <Grid
             container
             direction={'row'}
@@ -89,6 +71,25 @@ export function HomePage() {
                 ))
             )}
           </Grid>
+          <Text
+            textAlign={'left'}
+            style={{
+              display: topRatedQuery.isSuccess ? 'block' : 'none',
+              float: 'right',
+              marginRight: '30px',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              setViewNumber(prev => {
+                return viewNumber.STR === 12
+                  ? { ...prev, STR: 20 }
+                  : { ...prev, STR: 12 };
+              });
+            }}
+          >
+            {viewNumber.STR === 12 ? 'View More' : 'View Less'} &#187;
+          </Text>
         </section>
         <section
           style={{
@@ -98,28 +99,7 @@ export function HomePage() {
           <Text className="section_header" as={'h2'}>
             Now Playing Movies
           </Text>
-          <Text
-            textAlign={'left'}
-            style={{
-              display: nowPlaying.isSuccess ? 'block' : 'none',
-              float: 'right',
-              marginRight: '30px',
-              color: 'white',
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              setViewNumber(prev => {
-                return viewNumber.SNP === 12
-                  ? { ...prev, SNP: 20 }
-                  : { ...prev, SNP: 12 };
-              });
-            }}
-          >
-            {nowPlaying.data && viewNumber.SNP === 12
-              ? 'View More'
-              : 'View Less'}{' '}
-            &#187;
-          </Text>
+
           <Grid
             container
             direction={'row'}
@@ -153,6 +133,28 @@ export function HomePage() {
                 ))
             )}
           </Grid>
+          <Text
+            textAlign={'left'}
+            style={{
+              display: nowPlaying.isSuccess ? 'block' : 'none',
+              float: 'right',
+              marginRight: '30px',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              setViewNumber(prev => {
+                return viewNumber.SNP === 12
+                  ? { ...prev, SNP: 20 }
+                  : { ...prev, SNP: 12 };
+              });
+            }}
+          >
+            {nowPlaying.data && viewNumber.SNP === 12
+              ? 'View More'
+              : 'View Less'}{' '}
+            &#187;
+          </Text>
         </section>
 
         <section
@@ -163,28 +165,7 @@ export function HomePage() {
           <Text className="section_header" as="h2">
             Upcoming Movies
           </Text>
-          <Text
-            textAlign={'left'}
-            style={{
-              display: upcomingQuery.isSuccess ? 'block' : 'none',
-              float: 'right',
-              marginRight: '30px',
-              color: 'white',
-              cursor: 'pointer',
-            }}
-            onClick={() => {
-              setViewNumber(prev => {
-                return viewNumber.SP === 12
-                  ? { ...prev, SP: 20 }
-                  : { ...prev, SP: 12 };
-              });
-            }}
-          >
-            {upcomingQuery.data && viewNumber.SP === 12
-              ? 'View More'
-              : 'View Less'}{' '}
-            &#187;
-          </Text>
+
           <Grid
             container
             direction={'row'}
@@ -218,6 +199,28 @@ export function HomePage() {
                 ))
             )}
           </Grid>
+          <Text
+            textAlign={'left'}
+            style={{
+              display: upcomingQuery.isSuccess ? 'block' : 'none',
+              float: 'right',
+              marginRight: '30px',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              setViewNumber(prev => {
+                return viewNumber.SP === 12
+                  ? { ...prev, SP: 20 }
+                  : { ...prev, SP: 12 };
+              });
+            }}
+          >
+            {upcomingQuery.data && viewNumber.SP === 12
+              ? 'View More'
+              : 'View Less'}{' '}
+            &#187;
+          </Text>
         </section>
       </Container>
     </>
