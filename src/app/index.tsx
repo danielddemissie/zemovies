@@ -15,7 +15,7 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
-import { Auth } from './pages/Auth/Loadable';
+// import { Auth } from './pages/Auth/Loadable';
 import { DetailPage } from './pages/DetailPage/Loadable';
 import { PopularPage } from './pages/Popular/Loadable';
 import { MoviesPage } from './pages/Movies/Loadable';
@@ -43,7 +43,7 @@ export function App() {
         </Helmet>
         <Layout>
           <Switch>
-            <Route path="/login" component={Auth} />
+            {/* <Route path="/login" component={Auth} /> */}
             <Route exact path="/" component={HomePage} />
             <Route exact path="/popular" component={PopularPage} />
             <Route exact path="/movies" component={MoviesPage} />

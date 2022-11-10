@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Flex, Text, Input, Box } from 'app/components/Blocks';
+import { Grid, Flex, Text, Input } from 'app/components/Blocks';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
 import { moviesQuery } from 'app/hooks';
@@ -8,8 +8,9 @@ import { useHistory } from 'react-router-dom';
 import { Form, Formik } from 'formik';
 import './style.css';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { Container, CircularProgress } from '@mui/material';
+import { Container } from '@mui/material';
 import Pagination from 'app/components/Pagination';
+import { CardSkelton } from 'app/components/Skeleton/Card';
 
 export function PopularPage() {
   const [query, setQuery] = React.useState('');
@@ -98,12 +99,19 @@ export function PopularPage() {
           color="white.0"
         >
           {movieData.isLoading ? (
-            <Box textAlign={'center'}>
-              <CircularProgress />
-              <Text color="white.0" display={'block'}>
-                Loading...
-              </Text>
-            </Box>
+            Array.from(Array(12)).map(_card => (
+              <Grid
+                item
+                lg={2}
+                sm={4}
+                xs={6}
+                p="10px"
+                color="black.0"
+                key={_card}
+              >
+                <CardSkelton />
+              </Grid>
+            ))
           ) : movieData.isError ? (
             <Text color="white.0">Error occured</Text>
           ) : movieData.data?.data?.results?.length >= 1 ? (

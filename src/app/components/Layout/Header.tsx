@@ -328,7 +328,7 @@ export default () => {
             ))}
           </Box>
 
-          {user ? (
+          {/* {user ? (
             <Box
               sx={{
                 display: { xs: 'flex', md: 'flex' },
@@ -408,7 +408,7 @@ export default () => {
                 </Button>
               </Link>
             </Box>
-          )}
+          )} */}
         </Flex>
 
         <SwipeableDrawer

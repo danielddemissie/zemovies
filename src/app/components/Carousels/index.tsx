@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { moviesQuery } from 'app/hooks';
 import { Box, Text, Img, Flex } from '../Blocks';
 import { imgUrls } from 'app/config/';
+import Carousel from '../Skeleton/Carousel';
 
 const HomeCarousel = () => {
   const trendingQuery = moviesQuery.usegGetPopular();
@@ -49,7 +50,7 @@ const HomeCarousel = () => {
     <>
       {trendingQuery.isLoading ? (
         <Box className="main__nav">
-          <Text>Loading..</Text>
+          <Carousel />
         </Box>
       ) : trendingQuery.isError ? (
         <Box>

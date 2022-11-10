@@ -19,9 +19,9 @@ import {
   MenuItem,
   SelectChangeEvent,
   FormControl,
-  CircularProgress,
 } from '@mui/material';
 import Pagination from 'app/components/Pagination';
+import { CardSkelton } from 'app/components/Skeleton/Card';
 
 export function SeriesPage() {
   const [query, setQuery] = React.useState('');
@@ -240,12 +240,19 @@ export function SeriesPage() {
           color="white.0"
         >
           {movieData.isLoading ? (
-            <Box textAlign={'center'}>
-              <CircularProgress />
-              <Text color="white.0" display={'block'}>
-                Loading...
-              </Text>
-            </Box>
+            Array.from(Array(12)).map(_card => (
+              <Grid
+                item
+                lg={2}
+                sm={4}
+                xs={6}
+                p="10px"
+                color="black.0"
+                key={_card}
+              >
+                <CardSkelton />
+              </Grid>
+            ))
           ) : movieData.isError ? (
             <Text color="white.0">Error occured</Text>
           ) : movieData.data?.data?.results?.length >= 1 ? (

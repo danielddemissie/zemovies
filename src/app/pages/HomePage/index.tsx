@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Card } from 'app/components/Card';
-import { Grid, Text, Box } from 'app/components/Blocks';
+import { Grid, Text } from 'app/components/Blocks';
 import { moviesQuery } from 'app/hooks';
 import { imgUrls } from 'app/config/';
 import { useHistory } from 'react-router-dom';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import './style.css';
-import { CircularProgress, Container } from '@mui/material';
+import { Container } from '@mui/material';
+import { CardSkelton } from 'app/components/Skeleton/Card';
 
 export function HomePage() {
   const nowPlaying = moviesQuery.usegGetNowPlaying();
@@ -46,12 +47,11 @@ export function HomePage() {
             justifyContent={'center'}
           >
             {topRatedQuery.isLoading ? (
-              <Box textAlign={'center'}>
-                <CircularProgress />
-                <Text color="white.0" display={'block'}>
-                  Loading...
-                </Text>
-              </Box>
+              Array.from(Array(12)).map(_card => (
+                <Grid item lg={2} sm={4} xs={6} p="10px" key={_card}>
+                  <CardSkelton />
+                </Grid>
+              ))
             ) : topRatedQuery.isError ? (
               <Text color={'white.0'}>Error occured</Text>
             ) : (
@@ -108,12 +108,11 @@ export function HomePage() {
             rowGap={[0, '1rem']}
           >
             {nowPlaying.isLoading ? (
-              <Box textAlign={'center'}>
-                <CircularProgress />
-                <Text color={'white.0'} display="block">
-                  Loading...
-                </Text>
-              </Box>
+              Array.from(Array(12)).map(_card => (
+                <Grid item lg={2} sm={4} xs={6} p="10px" key={_card}>
+                  <CardSkelton />
+                </Grid>
+              ))
             ) : nowPlaying.isError ? (
               <Text color="white.0">Error occured</Text>
             ) : (
@@ -174,12 +173,11 @@ export function HomePage() {
             rowGap={[0, '1rem']}
           >
             {upcomingQuery.isLoading ? (
-              <Box textAlign={'center'}>
-                <CircularProgress />
-                <Text display={'block'} color="white.0">
-                  Loading...
-                </Text>
-              </Box>
+              Array.from(Array(12)).map(_card => (
+                <Grid item lg={2} sm={4} xs={6} p="10px" key={_card}>
+                  <CardSkelton />
+                </Grid>
+              ))
             ) : upcomingQuery.isError ? (
               <Text color="white.0">Error occured</Text>
             ) : (
