@@ -21,7 +21,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { HomeCarousel } from '../Carousels';
 import { useLocation } from 'react-router-dom';
 import { userQuery } from 'app/hooks';
-import { ArrowBackIosNew, ExpandMore } from '@mui/icons-material';
+import { ArrowBackIosNew } from '@mui/icons-material';
 import { QueryCache } from 'react-query';
 import { googleLogout } from '@react-oauth/google';
 import { useGoogleOneTapLogin } from '@react-oauth/google';
